@@ -74,7 +74,7 @@ resource "null_resource" "build" {
 
 resource "null_resource" "archive" {
   provisioner "local-exec" {
-    command     = "zip --junk-paths dist/app.zip dist/index.js package.json"
+    command     = "zip --junk-paths dist/app.zip dist/*.js package.json"
     working_dir = path.module
   }
   depends_on = [
