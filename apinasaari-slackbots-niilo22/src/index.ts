@@ -162,9 +162,8 @@ export const start = async () => {
   highlights.forEach(({ video, stats }, index) => {
     let text = '';
     text += `${index + 1}. *<${video.url}|${video.title}>*`;
-    text += ` | *${stats.viewCount}* katselua `;
-    text += `:thumbsup: *${stats.likeCount}* `;
-    text += `:thumbsdown: *${stats.dislikeCount}*`;
+    text += ` | *${stats.viewCount}* katselua | `;
+    text += `:thumbsup: *${stats.likeCount}* :thumbsdown: *${stats.dislikeCount}*`;
 
     blocks.push({
       type: 'section',
