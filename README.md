@@ -20,7 +20,6 @@ gcloud services enable \
 # Create App Engine application
 gcloud app create --project=$GCP_PROJECT_ID --region=europe-west
 
-
 # Create Terraform state bucket
 gsutil mb -b on -l europe-west1 -p $GCP_PROJECT_ID gs://$GCP_PROJECT_ID-tfstate/
 ```
@@ -35,10 +34,6 @@ gcloud iam service-accounts create terraform --display-name="Terraform service a
 gsutil iam ch serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com:admin gs://$GCP_PROJECT_ID-tfstate/
 
 # Grant required roles to the service account
-
-# gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
-#    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
-#    --role roles/storage.admin
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
@@ -73,3 +68,15 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --role roles/cloudfunctions.admin
 
 ```
+
+## Add secrets to GitHub
+
+Following secrets are required:
+
+| Secret                           | Description                                            |
+| :------------------------------- | :----------------------------------------------------- |
+| `GCP_PROJECT_ID`                 | Google Cloud Platform project ID                       |
+| `GCP_SA_KEY`                     | Google Cloud Platform service account key file (json)  |
+| `TF_STATE_BUCKET_NAME`           | Terraform state bucket name                            |
+| `SLACK_TOKEN`                    | Slack user token                                       |
+| `ENCE_PELAA_SLACKBOT_CHANNEL_ID` | Slack channel id for Ence Pelaa slackbot notifications |
