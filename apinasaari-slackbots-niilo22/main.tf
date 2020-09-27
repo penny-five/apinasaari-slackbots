@@ -44,6 +44,7 @@ resource "google_cloud_scheduler_job" "invoke" {
   name        = "niilo22-slackbot-job"
   description = "Triggers Niilo22 slackbot every sunday evening"
   schedule    = "0 20 * * SUN"
+  time_zone   = "Europe/Helsinki"
 
   pubsub_target {
     topic_name = google_pubsub_topic.invoke.id
