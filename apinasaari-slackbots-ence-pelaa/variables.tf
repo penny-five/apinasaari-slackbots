@@ -10,15 +10,15 @@ variable "region" {
 
 variable "sources_bucket_name" {
   type        = string
-  description = "Name of the bucket where to store source code"
+  description = "Source code bucket name"
 }
 
 variable "slack_token_secret_id" {
   type        = string
-  description = "Slack token secret"
+  description = "Slack token secret id"
 }
 
 variable "slack_channel_id" {
   type        = string
-  description = "Channel where send messages"
+  description = "Channel where to send messages"
 }

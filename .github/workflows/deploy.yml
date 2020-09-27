@@ -12,15 +12,15 @@ jobs:
           node-version: 12.x
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: "0.13.3"
+          terraform_version: '0.13.3'
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: "311.0.0"
+          version: '311.0.0'
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
       - name: Install package dependencies
-        run: cd apinasaari-slackbot-ence-pelaa && yarn install
+        run: cd apinasaari-slackbots-ence-pelaa && yarn install
       - name: Terraform init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET_NAME"
       - name: Terraform plan
