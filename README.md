@@ -20,7 +20,6 @@ gcloud services enable \
 # Create App Engine application
 gcloud app create --project=$GCP_PROJECT_ID --region=europe-west
 
-
 # Create Terraform state bucket
 gsutil mb -b on -l europe-west1 -p $GCP_PROJECT_ID gs://$GCP_PROJECT_ID-tfstate/
 ```
@@ -35,10 +34,6 @@ gcloud iam service-accounts create terraform --display-name="Terraform service a
 gsutil iam ch serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com:admin gs://$GCP_PROJECT_ID-tfstate/
 
 # Grant required roles to the service account
-
-# gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
-#    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
-#    --role roles/storage.admin
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
@@ -76,7 +71,7 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
 
 ## Add secrets to GitHub
 
-Following secrets have to be added:
+Following secrets are required:
 
 | Secret                           | Description                                            |
 | :------------------------------- | :----------------------------------------------------- |
