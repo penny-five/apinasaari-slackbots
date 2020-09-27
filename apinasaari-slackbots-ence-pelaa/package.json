@@ -2,7 +2,7 @@
   "name": "apinasaari-slackbot-ence-pelaa",
   "version": "1.0.0",
   "description": "Ence pelaa -slackbot",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "author": "penny-five",
   "license": "MIT",
   "private": true,
