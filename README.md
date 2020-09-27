@@ -73,3 +73,15 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --role roles/cloudfunctions.admin
 
 ```
+
+## Add secrets to GitHub
+
+Following secrets have to be added:
+
+| Secret                           | Description                                            |
+| :------------------------------- | :----------------------------------------------------- |
+| `GCP_PROJECT_ID`                 | Google Cloud Platform project ID                       |
+| `GCP_SA_KEY`                     | Google Cloud Platform service account key file (json)  |
+| `TF_STATE_BUCKET_NAME`           | Terraform state bucket name                            |
+| `SLACK_TOKEN`                    | Slack user token                                       |
+| `ENCE_PELAA_SLACKBOT_CHANNEL_ID` | Slack channel id for Ence Pelaa slackbot notifications |
