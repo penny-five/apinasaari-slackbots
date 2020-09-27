@@ -1,6 +1,5 @@
-# Niilo22 slackbot
+# Ence pelaa slackbot
 
 ![screenshot](screenshot.png)
 
-Once a week compiles a summary of new Niilo22 videos.
-
+Notifies of any upcoming games by Ence CS:GO team.
