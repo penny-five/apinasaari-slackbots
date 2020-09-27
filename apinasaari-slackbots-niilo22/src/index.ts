@@ -142,7 +142,7 @@ export const start = async () => {
   }));
 
   const highlights = [...videosIncludingStats]
-    .sort(({ stats }) => computeVideoRank(stats))
+    .sort((a, b) => computeVideoRank(b.stats) - computeVideoRank(a.stats))
     .slice(0, 5);
 
   const blocks: KnownBlock[] = [];
