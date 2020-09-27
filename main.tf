@@ -38,7 +38,7 @@ resource "google_secret_manager_secret_version" "slack_token" {
 }
 
 module "apinasaari-slackbot-ence-pelaa" {
-  source                = "./apinasaari-slackbot-ence-pelaa"
+  source                = "./apinasaari-slackbots-ence-pelaa"
   gcp_project_id        = var.gcp_project_id
   region                = local.region
   sources_bucket_name   = google_storage_bucket.sources.name
