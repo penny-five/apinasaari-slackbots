@@ -37,6 +37,23 @@ resource "google_secret_manager_secret_version" "slack_token" {
   secret_data = var.slack_token
 }
 
+resource "google_secret_manager_secret" "youtube_api_key" {
+  provider  = google-beta
+  secret_id = "youtube-api-key"
+  replication {
+    user_managed {
+      replicas {
+        location = local.region
+      }
+    }
+  }
+}
+
+resource "google_secret_manager_secret_version" "youtube_api_key" {
+  secret      = google_secret_manager_secret.youtube_api_key.id
+  secret_data = var.youtube_api_key
+}
+
 module "apinasaari-slackbot-ence-pelaa" {
   source                = "./apinasaari-slackbots-ence-pelaa"
   gcp_project_id        = var.gcp_project_id
@@ -46,3 +63,12 @@ module "apinasaari-slackbot-ence-pelaa" {
   slack_channel_id      = var.ence_pelaa_slackbot_channel_id
 }
 
+module "apinasaari-slackbot-niilo22" {
+  source                    = "./apinasaari-slackbots-niilo22"
+  gcp_project_id            = var.gcp_project_id
+  region                    = local.region
+  sources_bucket_name       = google_storage_bucket.sources.name
+  slack_token_secret_id     = google_secret_manager_secret.slack_token.id
+  youtube_api_key_secret_id = google_secret_manager_secret.youtube_api_key.id
+  slack_channel_id          = var.niilo22_slackbot_channel_id
+}

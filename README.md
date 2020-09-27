@@ -17,7 +17,8 @@ gcloud services enable \
    cloudresourcemanager.googleapis.com \
    secretmanager.googleapis.com \
    cloudscheduler.googleapis.com \
-   cloudbuild.googleapis.com
+   cloudbuild.googleapis.com \
+   youtube.googleapis.com
 
 # Create App Engine application
 gcloud app create --project=$GCP_PROJECT_ID --region=europe-west
@@ -81,4 +82,6 @@ Following secrets are required:
 | `GCP_SA_KEY`                     | Google Cloud Platform service account key file (json)  |
 | `TF_STATE_BUCKET_NAME`           | Terraform state bucket name                            |
 | `SLACK_TOKEN`                    | Slack user token                                       |
+| `YOUTUBE_API_KEY`                | YouTube API key                                        |
 | `ENCE_PELAA_SLACKBOT_CHANNEL_ID` | Slack channel id for Ence Pelaa slackbot notifications |
+| `NIILO22_SLACKBOT_CHANNEL_ID`    | Slack channel id for Niilo22 slackbot notifications    |

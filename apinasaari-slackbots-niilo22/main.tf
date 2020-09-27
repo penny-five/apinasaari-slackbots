@@ -10,8 +10,8 @@ provider "null" {
 
 resource "google_service_account" "slackbot" {
   provider     = google-beta
-  account_id   = "ence-pelaa-slackbot"
-  display_name = "Ence pelaa slackbot service account"
+  account_id   = "niilo22-slackbot"
+  display_name = "Niilo22 slackbot service account"
 }
 
 resource "google_project_iam_member" "cloud_functions_invoker" {
@@ -27,37 +27,28 @@ resource "google_secret_manager_secret_iam_member" "slack_token" {
   member    = "serviceAccount:${google_service_account.slackbot.email}"
 }
 
+resource "google_secret_manager_secret_iam_member" "youtube_api_key" {
+  provider  = google-beta
+  secret_id = var.youtube_api_key_secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.slackbot.email}"
+}
+
 resource "google_pubsub_topic" "invoke" {
   provider = google-beta
-  name     = "ence-pelaa-slackbot-topic"
+  name     = "niilo22-slackbot-topic"
 }
 
 resource "google_cloud_scheduler_job" "invoke" {
   provider    = google-beta
-  name        = "ence-pelaa-slackbot-job"
-  description = "Triggers Ence pelaa slackbot once per hour"
-  schedule    = "0 * * * *"
+  name        = "niilo22-slackbot-job"
+  description = "Triggers Niilo22 slackbot every sunday evening"
+  schedule    = "0 20 * * SUN"
 
   pubsub_target {
     topic_name = google_pubsub_topic.invoke.id
     data       = base64encode("ping")
   }
-}
-
-resource "google_storage_bucket" "state" {
-  provider                    = google-beta
-  name                        = "${var.gcp_project_id}-ence-pelaa-state"
-  location                    = "EU"
-  uniform_bucket_level_access = true
-}
-
-resource "google_storage_bucket_iam_binding" "slackbot_state_bucket_admin" {
-  provider = google-beta
-  bucket   = google_storage_bucket.state.name
-  role     = "roles/storage.admin"
-  members = [
-    "serviceAccount:${google_service_account.slackbot.email}",
-  ]
 }
 
 resource "null_resource" "build" {
@@ -85,7 +76,7 @@ resource "null_resource" "archive" {
 
 resource "google_storage_bucket_object" "source" {
   provider = google-beta
-  name     = "ence-pelaa-${uuid()}"
+  name     = "niilo22-${uuid()}"
   source   = "${path.module}/dist/app.zip"
   bucket   = var.sources_bucket_name
   depends_on = [
@@ -95,8 +86,8 @@ resource "google_storage_bucket_object" "source" {
 
 resource "google_cloudfunctions_function" "slackbot" {
   provider              = google-beta
-  name                  = "ence-pelaa-slackbot"
-  description           = "Ence pelaa slackbot"
+  name                  = "niilo22-slackbot"
+  description           = "Niilo22 slackbot"
   runtime               = "nodejs12"
   available_memory_mb   = 128
   service_account_email = google_service_account.slackbot.email
@@ -108,9 +99,9 @@ resource "google_cloudfunctions_function" "slackbot" {
     resource   = google_pubsub_topic.invoke.name
   }
   environment_variables = {
-    GCP_PROJECT_ID        = var.gcp_project_id
-    STATE_BUCKET_NAME     = google_storage_bucket.state.name
-    SLACK_CHANNEL_ID      = var.slack_channel_id
-    SLACK_TOKEN_SECRET_ID = var.slack_token_secret_id
+    GCP_PROJECT_ID            = var.gcp_project_id
+    SLACK_CHANNEL_ID          = var.slack_channel_id
+    SLACK_TOKEN_SECRET_ID     = var.slack_token_secret_id
+    YOUTUBE_API_KEY_SECRET_ID = var.youtube_api_key_secret_id
   }
 }
