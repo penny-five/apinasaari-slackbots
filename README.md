@@ -1,5 +1,7 @@
 # apinasaari-slackbots
 
+[![Status](https://github.com/penny-five/apinasaari-slackbots/workflows/deploy/badge.svg)](https://github.com/penny-five/apinasaari-slackbots/actions)
+
 Collection of slackbots to `apinasaari` slack workspace.
 
 All bots are deployed to the same Google Cloud Platform project.
