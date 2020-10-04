@@ -1,4 +1,5 @@
 .terraform
-terraform-service-account-key.json
-terraform.tfvars.json
+*-sa-key.json
+*.tfvars
+*.tfvars.json
 *.log
