@@ -5,11 +5,11 @@ variable "gcp_project_id" {
 
 variable "slack_token" {
   type        = string
-  description = "Slack token for slackbots"
+  description = "Slack token"
 }
 
 variable "youtube_api_key" {
-  type = string
+  type        = string
   description = "YouTube API key"
 }
 

@@ -112,13 +112,13 @@ export const start = async () => {
   const secretManagerClient = new SecretManagerServiceClient();
 
   const [slackTokenSecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.SLACK_TOKEN_SECRET_ID}/versions/latest`
+    name: `${process.env.SECRET_ID_SLACK_TOKEN}/versions/latest`
   });
 
   const slackClient = new WebClient(slackTokenSecretResponse.payload.data.toString());
 
   const [youtubeApiKeySecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.YOUTUBE_API_KEY_SECRET_ID}/versions/latest`
+    name: `${process.env.SECRET_ID_YOUTUBE_API_KEY}/versions/latest`
   });
 
   const youtubeApi = new YoutubeApi(youtubeApiKeySecretResponse.payload.data.toString());

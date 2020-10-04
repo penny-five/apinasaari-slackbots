@@ -161,7 +161,7 @@ export const start = async () => {
   const secretManagerClient = new SecretManagerServiceClient();
 
   const [slackTokenSecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.SLACK_TOKEN_SECRET_ID}/versions/latest`
+    name: `${process.env.SECRET_ID_SLACK_TOKEN}/versions/latest`
   });
 
   const slackClient = new SlackClient({

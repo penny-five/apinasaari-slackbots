@@ -13,62 +13,25 @@ provider "google-beta" {
   region  = local.region
 }
 
-resource "google_storage_bucket" "sources" {
-  name                        = "${var.gcp_project_id}-sources"
-  project                     = var.gcp_project_id
-  location                    = "EU"
-  uniform_bucket_level_access = true
-}
-
-resource "google_secret_manager_secret" "slack_token" {
-  provider  = google-beta
-  secret_id = "slack-token"
-  replication {
-    user_managed {
-      replicas {
-        location = local.region
-      }
-    }
-  }
-}
-
-resource "google_secret_manager_secret_version" "slack_token" {
-  secret      = google_secret_manager_secret.slack_token.id
-  secret_data = var.slack_token
-}
-
-resource "google_secret_manager_secret" "youtube_api_key" {
-  provider  = google-beta
-  secret_id = "youtube-api-key"
-  replication {
-    user_managed {
-      replicas {
-        location = local.region
-      }
-    }
-  }
-}
-
-resource "google_secret_manager_secret_version" "youtube_api_key" {
-  secret      = google_secret_manager_secret.youtube_api_key.id
-  secret_data = var.youtube_api_key
+provider "google" {
+  version = "3.39.0"
+  project = var.gcp_project_id
+  region  = local.region
 }
 
 module "apinasaari-slackbot-ence-pelaa" {
-  source                = "./apinasaari-slackbots-ence-pelaa"
-  gcp_project_id        = var.gcp_project_id
-  region                = local.region
-  sources_bucket_name   = google_storage_bucket.sources.name
-  slack_token_secret_id = google_secret_manager_secret.slack_token.id
-  slack_channel_id      = var.ence_pelaa_slackbot_channel_id
+  source           = "./apinasaari-slackbots-ence-pelaa"
+  gcp_project_id   = var.gcp_project_id
+  region           = local.region
+  slack_channel_id = var.ence_pelaa_slackbot_channel_id
+  slack_token      = var.slack_token
 }
 
 module "apinasaari-slackbot-niilo22" {
-  source                    = "./apinasaari-slackbots-niilo22"
-  gcp_project_id            = var.gcp_project_id
-  region                    = local.region
-  sources_bucket_name       = google_storage_bucket.sources.name
-  slack_token_secret_id     = google_secret_manager_secret.slack_token.id
-  youtube_api_key_secret_id = google_secret_manager_secret.youtube_api_key.id
-  slack_channel_id          = var.niilo22_slackbot_channel_id
+  source           = "./apinasaari-slackbots-niilo22"
+  gcp_project_id   = var.gcp_project_id
+  region           = local.region
+  slack_channel_id = var.niilo22_slackbot_channel_id
+  slack_token      = var.slack_token
+  youtube_api_key  = var.youtube_api_key
 }
