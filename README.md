@@ -8,9 +8,12 @@ All bots are deployed to the same Google Cloud Platform project.
 
 # Getting started
 
-## Prepare Google Cloud Platform project
+## Prepare a Google Cloud Platform project
 
 ```sh
+# Set correct project
+gcloud config set project $GCP_PROJECT_ID
+
 # Enable required services
 gcloud services enable \
    iam.googleapis.com \
@@ -18,18 +21,22 @@ gcloud services enable \
    secretmanager.googleapis.com \
    cloudscheduler.googleapis.com \
    cloudbuild.googleapis.com \
+   cloudfunctions.googleapis.com \
    youtube.googleapis.com
 
 # Create App Engine application
-gcloud app create --project=$GCP_PROJECT_ID --region=europe-west
+gcloud app create --region=europe-west
 
 # Create Terraform state bucket
-gsutil mb -b on -l europe-west1 -p $GCP_PROJECT_ID gs://$GCP_PROJECT_ID-tfstate/
+gsutil mb -b on -l europe-west1 gs://$GCP_PROJECT_ID-tfstate/
 ```
 
 ## Create Terraform service account
 
 ```sh
+# Set correct project
+gcloud config set project $GCP_PROJECT_ID
+
 # Create a service account
 gcloud iam service-accounts create terraform --display-name="Terraform service account"
 
@@ -44,15 +51,19 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
+   --role roles/iam.serviceAccountUser
+
+gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
+   --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
+   --role roles/storage.admin
+
+gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
+   --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
    --role roles/resourcemanager.projectIamAdmin
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
    --role roles/cloudfunctions.admin
-
-gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
-   --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
-   --role roles/iam.serviceAccountUser
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
@@ -69,12 +80,13 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
    --role roles/cloudfunctions.admin
-
 ```
 
-## Add secrets to GitHub
+## Deploy from GitHub
 
-Following secrets are required:
+To enable deploy using GitHub actions following secrets are required:
+
+**Shared**
 
 | Secret                           | Description                                            |
 | :------------------------------- | :----------------------------------------------------- |
@@ -82,6 +94,14 @@ Following secrets are required:
 | `GCP_SA_KEY`                     | Google Cloud Platform service account key file (json)  |
 | `TF_STATE_BUCKET_NAME`           | Terraform state bucket name                            |
 | `SLACK_TOKEN`                    | Slack user token                                       |
-| `YOUTUBE_API_KEY`                | YouTube API key                                        |
+
+**Ence pelaa slackbot**
+| Secret                           | Description                                            |
+| :------------------------------- | :----------------------------------------------------- |
 | `ENCE_PELAA_SLACKBOT_CHANNEL_ID` | Slack channel id for Ence Pelaa slackbot notifications |
+
+**Niilo22 slackbot**
+| Secret                           | Description                                            |
+| :------------------------------- | :----------------------------------------------------- |
 | `NIILO22_SLACKBOT_CHANNEL_ID`    | Slack channel id for Niilo22 slackbot notifications    |
+| `YOUTUBE_API_KEY`                | YouTube API key                                        |
