@@ -1,3 +1,4 @@
+import logger from '@apinasaari-slackbots/common/src/logger';
 import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common/src/apis/youtube';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as Slack from '@slack/web-api';
@@ -32,7 +33,7 @@ export const start = async () => {
   const newVideos = allVideos.filter(video => video.publishedAt > weekAgo);
 
   if (newVideos.length === 0) {
-    console.log('No new videos');
+    logger.info('No new videos');
     return;
   }
 

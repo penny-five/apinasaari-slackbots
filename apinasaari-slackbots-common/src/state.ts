@@ -1,3 +1,5 @@
+import logger from './logger';
+
 import { Storage, Bucket } from '@google-cloud/storage';
 
 export class StateManager<T> {
@@ -34,12 +36,12 @@ export class StateManager<T> {
     const serializedState = JSON.stringify(state);
 
     if (JSON.stringify(this.cachedState) === serializedState) {
-      console.log('StateManager: State not changed, skipping');
+      logger.info('StateManager: State not changed, skipping');
       return;
     }
 
     const stateFile = this.bucket.file(StateManager.STATE_FILE_NAME);
     await stateFile.save(JSON.stringify(state));
-    console.log('StateManager: State saved', state);
+    logger.info('Statemanager: state saved', { state });
   }
 }

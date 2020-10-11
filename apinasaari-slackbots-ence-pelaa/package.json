@@ -14,7 +14,8 @@
     "@types/luxon": "1.25.0",
     "@types/node": "12.12.6",
     "got": "11.7.0",
-    "luxon": "1.25.0"
+    "luxon": "1.25.0",
+    "pino": "6.7.0"
   },
   "devDependencies": {
     "rimraf": "3.0.2",
