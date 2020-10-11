@@ -1,5 +1,5 @@
 {
-  "name": "apinasaari-slackbots-common",
+  "name": "@apinasaari-slackbots/common",
   "version": "1.0.0",
   "description": "Common lib for apinasaari slackbots",
   "main": "index.js",

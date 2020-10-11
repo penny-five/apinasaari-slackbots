@@ -1,9 +1,8 @@
+import { StateManager } from '@apinasaari-slackbots/common/src/state';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as Slack from '@slack/web-api';
 import got from 'got';
 import { DateTime } from 'luxon';
-
-import { StateManager } from 'apinasaari-slackbots-common/src/state';
 
 interface Match {
   id: string;

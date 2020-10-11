@@ -1,8 +1,7 @@
+import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common/src/apis/youtube';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
-
-import { YoutubeApi, YoutubeVideoStats } from 'apinasaari-slackbots-common/src/apis/youtube';
 
 const NIILO22_PLAYLIST_ID = 'UU7WlCq3wvnxgBEbVA9Dyo9w';
 

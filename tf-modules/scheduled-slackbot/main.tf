@@ -77,7 +77,7 @@ resource "null_resource" "build" {
 resource "null_resource" "zip_files" {
   provisioner "local-exec" {
     command     = <<EOT
-      jq '.dependencies|=with_entries(select(.key|test("apinasaari-slackbots-.*")|not))' package.json > dist/package.json
+      jq '.dependencies|=with_entries(select(.key|test("@apinasaari-slackbots/.*")|not))' package.json > dist/package.json
       zip --junk-paths dist/app.zip dist/*
     EOT
     working_dir = var.build_dir

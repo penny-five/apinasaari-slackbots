@@ -27,7 +27,7 @@ const config = {
   },
   externals: [
     nodeExternals({
-      allowlist: /^apinasaari-slackbots-.*$/,
+      allowlist: /^@apinasaari-slackbots\/.*$/,
       modulesFromFile: true
     })
   ]
