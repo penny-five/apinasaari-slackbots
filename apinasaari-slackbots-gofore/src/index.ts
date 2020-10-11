@@ -20,7 +20,7 @@ export const start = async () => {
     lastNotified = DateTime.fromISO(state.lastNotifiedTimestamp);
   } else {
     // Use sane default lastNotified timestamp when slackbot is run for the first time.
-    lastNotified = DateTime.local().setZone('Europe/Helsinki').minus({ hours: 500000 });
+    lastNotified = DateTime.local().setZone('Europe/Helsinki').minus({ hours: 24 });
   }
 
   const ampparit = new AmpparitApi();
