@@ -35,3 +35,11 @@ module "apinasaari-slackbot-niilo22" {
   slack_token      = var.slack_token
   youtube_api_key  = var.youtube_api_key
 }
+
+module "apinasaari-slackbot-solita" {
+  source           = "./apinasaari-slackbots-solita"
+  gcp_project_id   = var.gcp_project_id
+  region           = local.region
+  slack_channel_id = var.solita_slackbot_channel_id
+  slack_token      = var.slack_token
+}

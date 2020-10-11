@@ -48,10 +48,10 @@ export interface YoutubeVideoStats {
 export class YoutubeApi {
   private readonly YOUTUBE_API_V3_BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
-  private readonly instance: Got;
+  private readonly httpClient: Got;
 
   constructor(apiKey: string) {
-    this.instance = got.extend({
+    this.httpClient = got.extend({
       prefixUrl: this.YOUTUBE_API_V3_BASE_URL,
       searchParams: {
         key: apiKey
@@ -60,7 +60,7 @@ export class YoutubeApi {
   }
 
   async getPlaylistItems(playlistId: string): Promise<YoutubePlaylistVideo[]> {
-    const response = await this.instance
+    const response = await this.httpClient
       .get(`playlistItems`, {
         searchParams: {
           part: 'snippet',
@@ -79,7 +79,7 @@ export class YoutubeApi {
   }
 
   async batchGetVideoStatistics(videoIds: string[]): Promise<YoutubeVideoStats[]> {
-    const response = await this.instance
+    const response = await this.httpClient
       .get('videos', {
         searchParams: {
           part: 'statistics',

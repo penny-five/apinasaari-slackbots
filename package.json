@@ -27,14 +27,14 @@
     }
   },
   "lint-staged": {
-    "*.ts": [
+    "**/*.ts": [
       "prettier --write",
       "eslint"
     ],
-    "*.{js,md,json}": [
+    "**/*.{js,md,json,yml,yaml}": [
       "prettier --write"
     ],
-    "*.tf": [
+    "**/*.tf": [
       "yarn tf-fmt"
     ]
   }

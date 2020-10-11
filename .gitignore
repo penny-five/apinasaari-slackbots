@@ -6,3 +6,4 @@ dist
 *.tfvars
 *.tfvars.json
 *.log
+.env

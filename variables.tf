@@ -22,3 +22,9 @@ variable "niilo22_slackbot_channel_id" {
   type        = string
   description = "Slack channel id for Niilo22 slackbot"
 }
+
+variable "solita_slackbot_channel_id" {
+  type        = string
+  description = "Slack channel id for Solita slackbot"
+}
+

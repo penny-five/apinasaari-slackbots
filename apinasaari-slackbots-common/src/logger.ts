@@ -1,6 +1,6 @@
 import Pino from 'pino';
 
-const logger = Pino({
+export const logger = Pino({
   timestamp: () => `,"timestamp":"${new Date().toISOString()}"`,
   formatters: {
     level(_label, number) {
