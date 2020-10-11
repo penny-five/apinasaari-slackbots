@@ -11,15 +11,26 @@ const config = {
     filename: 'index.js',
     libraryTarget: 'commonjs'
   },
+  resolve: {
+    extensions: ['.ts']
+  },
   module: {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
+        loader: 'ts-loader',
+        options: {
+          allowTsInNodeModules: true
+        }
       }
     ]
   },
-  externals: [nodeExternals()]
+  externals: [
+    nodeExternals({
+      allowlist: /^apinasaari-slackbots-.*$/,
+      modulesFromFile: true
+    })
+  ]
 };
 
 module.exports = config;

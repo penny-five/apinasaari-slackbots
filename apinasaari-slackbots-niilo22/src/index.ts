@@ -1,110 +1,13 @@
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
-import { WebClient, KnownBlock } from '@slack/web-api';
-import got, { Got } from 'got';
+import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
+
+import { YoutubeApi, YoutubeVideoStats } from 'apinasaari-slackbots-common/src/apis/youtube';
 
 const NIILO22_PLAYLIST_ID = 'UU7WlCq3wvnxgBEbVA9Dyo9w';
 
-interface YoutubeArrayResponse<T> {
-  items: T[];
-}
-
-interface YoutubePlaylistItemListResponseItem {
-  id: string;
-  kind: string;
-  snippet?: {
-    channelId: string;
-    publishedAt: string;
-    title: string;
-    resourceId: {
-      kind: string;
-      videoId: string;
-    };
-  };
-}
-
-interface YoutubeGetVideosResponseItem {
-  kind: string;
-  id: string;
-  statistics?: {
-    viewCount: string;
-    likeCount: string;
-    dislikeCount: string;
-    favoriteCount: string;
-    commentCount: string;
-  };
-}
-
-interface YoutubePlaylistVideo {
-  id: string;
-  title: string;
-  url: string;
-  publishedAt: DateTime;
-}
-
-interface YoutubeVideoStats {
-  id: string;
-  viewCount: number;
-  likeCount: number;
-  dislikeCount: number;
-}
-
-class YoutubeApi {
-  private readonly YOUTUBE_API_V3_BASE_URL = 'https://www.googleapis.com/youtube/v3';
-
-  private readonly instance: Got;
-
-  constructor(apiKey: string) {
-    this.instance = got.extend({
-      prefixUrl: this.YOUTUBE_API_V3_BASE_URL,
-      searchParams: {
-        key: apiKey
-      }
-    });
-  }
-
-  async getPlaylistItems(playlistId: string): Promise<YoutubePlaylistVideo[]> {
-    const response = await this.instance
-      .get(`playlistItems`, {
-        searchParams: {
-          part: 'snippet',
-          playlistId,
-          maxResults: 50
-        }
-      })
-      .json<YoutubeArrayResponse<YoutubePlaylistItemListResponseItem>>();
-
-    return response.items.map(item => ({
-      id: item.snippet.resourceId.videoId,
-      url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
-      publishedAt: DateTime.fromISO(item.snippet.publishedAt),
-      title: item.snippet.title
-    }));
-  }
-
-  async getVideoStatistics(videoIds: string[]): Promise<YoutubeVideoStats[]> {
-    const response = await this.instance
-      .get('videos', {
-        searchParams: {
-          part: 'statistics',
-          id: videoIds.join(','),
-          maxResults: videoIds.length
-        }
-      })
-      .json<YoutubeArrayResponse<YoutubeGetVideosResponseItem>>();
-
-    return response.items.map(item => ({
-      id: item.id,
-      viewCount: parseInt(item.statistics.viewCount, 10),
-      likeCount: parseInt(item.statistics.likeCount, 10),
-      dislikeCount: parseInt(item.statistics.dislikeCount, 10)
-    }));
-  }
-}
-
 const computeVideoRank = (stats: YoutubeVideoStats) => {
-  const multiplier =
-    Math.max(stats.likeCount, stats.dislikeCount) / Math.min(stats.likeCount, stats.dislikeCount);
+  const multiplier = Math.max(stats.likeCount, stats.dislikeCount) / Math.min(stats.likeCount, stats.dislikeCount);
   return stats.viewCount * multiplier;
 };
 
@@ -115,15 +18,15 @@ export const start = async () => {
     name: `${process.env.SECRET_ID_SLACK_TOKEN}/versions/latest`
   });
 
-  const slackClient = new WebClient(slackTokenSecretResponse.payload.data.toString());
+  const slackClient = new Slack.WebClient(slackTokenSecretResponse.payload.data.toString());
 
   const [youtubeApiKeySecretResponse] = await secretManagerClient.accessSecretVersion({
     name: `${process.env.SECRET_ID_YOUTUBE_API_KEY}/versions/latest`
   });
 
-  const youtubeApi = new YoutubeApi(youtubeApiKeySecretResponse.payload.data.toString());
+  const youtube = new YoutubeApi(youtubeApiKeySecretResponse.payload.data.toString());
 
-  const allVideos = await youtubeApi.getPlaylistItems(NIILO22_PLAYLIST_ID);
+  const allVideos = await youtube.getPlaylistItems(NIILO22_PLAYLIST_ID);
 
   const weekAgo = DateTime.local().minus({ days: 7 });
 
@@ -134,7 +37,7 @@ export const start = async () => {
     return;
   }
 
-  const stats = await youtubeApi.getVideoStatistics(newVideos.map(video => video.id));
+  const stats = await youtube.batchGetVideoStatistics(newVideos.map(video => video.id));
 
   const videosIncludingStats = newVideos.map(video => ({
     video,
@@ -145,7 +48,7 @@ export const start = async () => {
     .sort((a, b) => computeVideoRank(b.stats) - computeVideoRank(a.stats))
     .slice(0, 5);
 
-  const blocks: KnownBlock[] = [];
+  const blocks: Slack.KnownBlock[] = [];
 
   blocks.push({
     type: 'section',

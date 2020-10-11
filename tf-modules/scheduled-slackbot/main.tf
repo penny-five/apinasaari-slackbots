@@ -53,9 +53,10 @@ resource "google_pubsub_topic" "invoke" {
 }
 
 resource "google_cloud_scheduler_job" "invoke" {
-  provider = google-beta
-  name     = "${var.slackbot_name}-slackbot-job"
-  schedule = var.schedule
+  provider  = google-beta
+  name      = "${var.slackbot_name}-slackbot-job"
+  schedule  = var.schedule
+  time_zone = "Europe/Helsinki"
 
   pubsub_target {
     topic_name = google_pubsub_topic.invoke.id
@@ -75,7 +76,10 @@ resource "null_resource" "build" {
 
 resource "null_resource" "zip_files" {
   provisioner "local-exec" {
-    command     = "zip --junk-paths dist/app.zip dist/index.js package.json"
+    command = <<EOT
+      jq '.dependencies|=with_entries(select(.key|test("apinasaari-slackbots-.*")|not))' package.json > dist/package.json
+      zip --junk-paths dist/app.zip dist/*
+    EOT
     working_dir = var.build_dir
   }
   depends_on = [
