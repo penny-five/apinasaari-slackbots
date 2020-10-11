@@ -43,3 +43,11 @@ module "apinasaari-slackbot-solita" {
   slack_channel_id = var.solita_slackbot_channel_id
   slack_token      = var.slack_token
 }
+
+module "apinasaari-slackbot-gofore" {
+  source           = "./apinasaari-slackbots-gofore"
+  gcp_project_id   = var.gcp_project_id
+  region           = local.region
+  slack_channel_id = var.gofore_slackbot_channel_id
+  slack_token      = var.slack_token
+}
