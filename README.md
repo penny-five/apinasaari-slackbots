@@ -110,6 +110,12 @@ To enable deploy using GitHub actions following secrets are required:
 
 ### Solita slackbot
 
-| Secret                       | Description                                         |
-| :--------------------------- | :-------------------------------------------------- |
-| `SOLITA_SLACKBOT_CHANNEL_ID` | Slack channel id for Niilo22 slackbot notifications |
+| Secret                       | Description                                        |
+| :--------------------------- | :------------------------------------------------- |
+| `SOLITA_SLACKBOT_CHANNEL_ID` | Slack channel id for Solita slackbot notifications |
+
+### Gofore slackbot
+
+| Secret                       | Description                                        |
+| :--------------------------- | :------------------------------------------------- |
+| `GOFORE_SLACKBOT_CHANNEL_ID` | Slack channel id for Gofore slackbot notifications |
