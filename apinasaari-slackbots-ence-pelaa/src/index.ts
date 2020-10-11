@@ -1,5 +1,5 @@
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
 import { StateManager } from '@apinasaari-slackbots/common/src/state';
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as Slack from '@slack/web-api';
 import got from 'got';
 import { DateTime } from 'luxon';
@@ -72,14 +72,6 @@ interface AppState {
 }
 
 export const start = async () => {
-  const secretManagerClient = new SecretManagerServiceClient();
-
-  const [slackTokenSecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.SECRET_ID_SLACK_TOKEN}/versions/latest`
-  });
-
-  const slackClient = new Slack.WebClient(slackTokenSecretResponse.payload.data.toString());
-
   const stateManager = new StateManager<AppState>(process.env.STATE_BUCKET_NAME);
 
   let state = await stateManager.loadState();
@@ -93,6 +85,9 @@ export const start = async () => {
 
   const cms = new EnceCms();
   const matchDataset = await cms.getMatchDataset();
+
+  const slackToken = await getLatestSecretVersion(process.env.SECRET_ID_SLACK_TOKEN);
+  const slackClient = new Slack.WebClient(slackToken);
 
   for (const match of matchDataset.getUpcomingMatches()) {
     if (!state.nofitiedUpcomingMatches.includes(match.id)) {

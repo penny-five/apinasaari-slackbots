@@ -1,6 +1,6 @@
 import logger from '@apinasaari-slackbots/common/src/logger';
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
 import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common/src/apis/youtube';
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
 
@@ -12,19 +12,13 @@ const computeVideoRank = (stats: YoutubeVideoStats) => {
 };
 
 export const start = async () => {
-  const secretManagerClient = new SecretManagerServiceClient();
+  const slackToken = await getLatestSecretVersion(process.env.SECRET_ID_SLACK_TOKEN);
 
-  const [slackTokenSecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.SECRET_ID_SLACK_TOKEN}/versions/latest`
-  });
+  const slackClient = new Slack.WebClient(slackToken);
 
-  const slackClient = new Slack.WebClient(slackTokenSecretResponse.payload.data.toString());
+  const youtubeApiKey = await getLatestSecretVersion(process.env.SECRET_ID_YOUTUBE_API_KEY);
 
-  const [youtubeApiKeySecretResponse] = await secretManagerClient.accessSecretVersion({
-    name: `${process.env.SECRET_ID_YOUTUBE_API_KEY}/versions/latest`
-  });
-
-  const youtube = new YoutubeApi(youtubeApiKeySecretResponse.payload.data.toString());
+  const youtube = new YoutubeApi(youtubeApiKey);
 
   const allVideos = await youtube.getPlaylistItems(NIILO22_PLAYLIST_ID);
 

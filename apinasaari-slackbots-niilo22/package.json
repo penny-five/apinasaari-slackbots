@@ -17,6 +17,7 @@
     "pino": "6.7.0"
   },
   "devDependencies": {
+    "dotenv": "8.2.0",
     "rimraf": "3.0.2",
     "ts-loader": "8.0.4",
     "typescript": "4.0.3",
@@ -25,6 +26,7 @@
     "webpack-node-externals": "2.5.2"
   },
   "scripts": {
-    "build": "rimraf dist/**/* && webpack"
+    "build": "rimraf dist/**/* && webpack",
+    "start": "yarn build && node -e \"require('dotenv/config'); require('./dist/index.js').start()\""
   }
 }
