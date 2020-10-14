@@ -1,6 +1,7 @@
-import logger from './logger';
-
 import { Storage, Bucket } from '@google-cloud/storage';
+import * as _ from 'lodash';
+
+import logger from './logger';
 
 export class StateManager<T> {
   private static readonly STATE_FILE_NAME = 'state.json';
@@ -26,16 +27,14 @@ export class StateManager<T> {
     if (stateFileExists) {
       const response = await stateFile.download();
       this.cachedState = JSON.parse(response[0].toString());
-      return this.cachedState;
+      return _.cloneDeep(this.cachedState);
     }
 
     return null;
   }
 
   async saveState(state: T) {
-    const serializedState = JSON.stringify(state);
-
-    if (JSON.stringify(this.cachedState) === serializedState) {
+    if (_.isEqual(this.cachedState, state)) {
       logger.info('StateManager: State not changed, skipping');
       return;
     }
@@ -43,5 +42,7 @@ export class StateManager<T> {
     const stateFile = this.bucket.file(StateManager.STATE_FILE_NAME);
     await stateFile.save(JSON.stringify(state));
     logger.info('Statemanager: state saved', { state });
+
+    this.cachedState = _.cloneDeep(state);
   }
 }
