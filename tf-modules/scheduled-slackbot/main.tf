@@ -36,6 +36,7 @@ resource "google_storage_bucket" "state" {
   name                        = "${var.gcp_project_id}-${var.slackbot_name}-state"
   location                    = var.region
   uniform_bucket_level_access = true
+  force_destroy               = true
 }
 
 resource "google_storage_bucket_iam_binding" "state_bucket_admin" {
