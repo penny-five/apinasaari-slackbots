@@ -23,10 +23,13 @@ jobs:
         run: yarn install
       - name: Terraform init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET_NAME"
+        working-directory: ./terraform
       - name: Terraform plan
         run: terraform plan -no-color -out plan.tfplan
+        working-directory: ./terraform
       - name: Terraform apply
         run: terraform apply -no-color plan.tfplan
+        working-directory: ./terraform
     env:
       TF_STATE_BUCKET_NAME: ${{ secrets.TF_STATE_BUCKET_NAME }}
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
