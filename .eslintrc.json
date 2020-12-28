@@ -3,6 +3,7 @@
   "extends": ["standard", "prettier"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "no-console": "error"
+    "no-console": "error",
+    "camelcase": "off"
   }
 }

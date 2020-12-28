@@ -18,8 +18,7 @@
   },
   "scripts": {
     "tf-fmt": "fmt () { for f in $*; do terraform fmt $f; done }; fmt",
-    "tf-fmt-all": "terraform fmt --recursive",
-    "lint-all": "eslint **/*.ts"
+    "lint": "eslint **/*.ts"
   },
   "husky": {
     "hooks": {

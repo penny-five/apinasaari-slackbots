@@ -1,0 +1,48 @@
+{
+  "name": "@apinasaari-slackbots/meme-generator",
+  "version": "1.0.0",
+  "description": "Meme generator slackbot",
+  "main": "index.js",
+  "author": "penny-five",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@apinasaari-slackbots/common": "1.0.0",
+    "@google-cloud/secret-manager": "3.2.0",
+    "@google-cloud/storage": "5.7.0",
+    "@slack/interactive-messages": "1.7.0",
+    "@slack/web-api": "5.12.0",
+    "@types/canvas-txt": "3.0.0",
+    "@types/express": "4.17.9",
+    "@types/mime-types": "2.1.0",
+    "canvas": "2.6.1",
+    "canvas-txt": "3.0.0",
+    "class-transformer": "0.3.1",
+    "class-transformer-validator": "0.9.1",
+    "class-validator": "0.12.2",
+    "express": "4.17.1",
+    "got": "11.7.0",
+    "lodash": "4.17.20",
+    "luxon": "1.25.0",
+    "mime-types": "2.1.27",
+    "pino": "6.7.0",
+    "reflect-metadata": "0.1.13"
+  },
+  "devDependencies": {
+    "@google-cloud/functions-framework": "1.7.1",
+    "concurrently": "5.3.0",
+    "env-cmd": "10.1.0",
+    "nodemon": "2.0.6",
+    "rimraf": "3.0.2",
+    "ts-loader": "8.0.4",
+    "typescript": "4.0.3",
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.12",
+    "webpack-node-externals": "2.5.2"
+  },
+  "scripts": {
+    "build": "rimraf dist/**/* && webpack",
+    "serve": "nodemon --watch dist --exec \"env-cmd --silent functions-framework --source=dist --target default\"",
+    "dev": "NODE_ENV=development concurrently \"yarn build --watch\" \"yarn serve\""
+  }
+}

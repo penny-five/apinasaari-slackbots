@@ -22,13 +22,19 @@ variable "memory_mb" {
 variable "environment_variables" {
   type        = map(string)
   description = "Environment variables"
-  default     = null
+  default     = {}
 }
 
 variable "secrets" {
   type        = map(string)
   description = "Secrets in (secret_name, value) map. Slackbot service account is granted access to all secrets."
-  default     = null
+  default     = {}
+}
+
+variable "entry_point" {
+  type        = string
+  description = "Entry point function name"
+  default     = "start"
 }
 
 variable "build_dir" {
@@ -41,13 +47,20 @@ variable "build_cmd" {
   description = "Build command"
 }
 
-variable "schedule" {
+variable "event_trigger_type" {
   type        = string
-  description = "Invocation schedule in cron format in Europe/Helsinki tz"
+  description = "Event trigger type"
+  default     = null
 }
 
-variable "entry_point" {
+variable "event_trigger_resource" {
   type        = string
-  description = "Entry point function name"
-  default     = "start"
+  description = "Event trigger resource"
+  default     = null
+}
+
+variable "http_trigger" {
+  type        = bool
+  description = "Enable if slackbot is striggered through http endpoint"
+  default     = null
 }

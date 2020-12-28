@@ -41,11 +41,6 @@ variable "build_cmd" {
   description = "Build command"
 }
 
-variable "schedule" {
-  type        = string
-  description = "Invocation schedule in cron format in Europe/Helsinki tz"
-}
-
 variable "entry_point" {
   type        = string
   description = "Entry point function name"
