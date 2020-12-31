@@ -31,6 +31,7 @@ Meme generator consists of three packages:
 - Deploy with GitHub actions
 
 ### Step 3: Slack
+
 - Enable interactivity ("Features" -> "Interactivity & Shortcuts" -> "Interactivity").
   - Set "Request URL" to `<SLACK_WEBHOOK_TRIGGER_URL>/interactions`.
 - Create a new shortcut ("Features" -> "Interactivity & Shortcuts" -> "Shortcuts")

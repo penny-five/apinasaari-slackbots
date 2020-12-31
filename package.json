@@ -21,11 +21,12 @@
     "eslint-plugin-standard": "4.0.1",
     "husky": "4.3.0",
     "lint-staged": "10.4.0",
-    "prettier": "2.1.2"
+    "prettier": "2.2.1"
   },
   "scripts": {
     "tf-fmt": "fmt () { for f in $*; do terraform fmt $f; done }; fmt",
-    "lint": "eslint **/*.ts"
+    "lint": "eslint **/*.ts",
+    "prettify": "prettier --write **/*.{ts,js,md,json,yml,yaml}"
   },
   "husky": {
     "hooks": {

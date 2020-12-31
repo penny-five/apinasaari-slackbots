@@ -93,7 +93,7 @@ To enable deploy using GitHub actions following secrets are required:
 | `GCP_PROJECT_ID`       | Google Cloud Platform project ID                      |
 | `GCP_SA_KEY`           | Google Cloud Platform service account key file (json) |
 | `TF_STATE_BUCKET_NAME` | Terraform state bucket name                           |
-| `SLACK_TOKEN`          | Slack token                                      |
+| `SLACK_TOKEN`          | Slack token                                           |
 
 ### Ence pelaa slackbot
 

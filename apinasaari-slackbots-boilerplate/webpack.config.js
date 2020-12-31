@@ -36,7 +36,7 @@ const config = {
       allowlist: /^@apinasaari-slackbots\/.*$/,
       modulesFromFile: true
     })
-  ],
+  ]
 };
 
 module.exports = config;
