@@ -1,3 +1,5 @@
+const path = require('path');
+
 const nodeExternals = require('webpack-node-externals');
 
 /**
@@ -5,10 +7,14 @@ const nodeExternals = require('webpack-node-externals');
  */
 const config = {
   entry: './src/index.ts',
-  mode: 'production',
+  mode: process.env.NODE_ENV,
+  watchOptions: {
+    ignored: /node_modules/
+  },
   target: 'node',
   output: {
     filename: 'index.js',
+    path: path.join(__dirname, 'dist'),
     libraryTarget: 'commonjs'
   },
   resolve: {

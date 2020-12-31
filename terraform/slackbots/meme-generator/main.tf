@@ -60,7 +60,6 @@ module "slack_webhook_function" {
   memory_mb             = 512
   build_dir             = "${path.module}/../../../apinasaari-slackbots-meme-generator/meme-generator-slack-webhook"
   build_cmd             = "yarn build"
-  entry_point           = "default"
   http_trigger          = true
   environment_variables = {
     ASSETS_BUCKET_NAME = module.assets_bucket.name,
@@ -86,7 +85,6 @@ module "painter_function" {
   memory_mb              = 512
   build_dir              = "${path.module}/../../../apinasaari-slackbots-meme-generator/meme-generator-painter"
   build_cmd              = "yarn build"
-  entry_point            = "default"
   event_trigger_type     = "google.pubsub.topic.publish"
   event_trigger_resource = google_pubsub_topic.tasks.name
   environment_variables = {

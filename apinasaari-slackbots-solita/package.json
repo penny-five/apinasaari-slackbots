@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "@apinasaari-slackbots/common": "1.0.0",
+    "@google-cloud/functions-framework": "1.7.1",
     "@google-cloud/secret-manager": "3.2.0",
     "@google-cloud/storage": "5.7.0",
     "@slack/web-api": "5.12.0",
@@ -17,9 +18,11 @@
     "pino": "6.7.0"
   },
   "devDependencies": {
-    "dotenv": "8.2.0",
+    "concurrently": "5.3.0",
+    "env-cmd": "10.1.0",
+    "nodemon": "2.0.6",
     "rimraf": "3.0.2",
-    "ts-loader": "8.0.4",
+    "ts-loader": "8.0.13",
     "typescript": "4.0.3",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
@@ -27,6 +30,7 @@
   },
   "scripts": {
     "build": "rimraf dist/**/* && webpack",
-    "start": "yarn build && node -e \"require('dotenv/config'); require('./dist/index.js').start()\""
+    "serve": "nodemon --watch dist --exec \"env-cmd --silent functions-framework --source=dist --target default\"",
+    "dev": "NODE_ENV=development concurrently \"yarn build --watch\" \"yarn serve\""
   }
 }

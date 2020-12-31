@@ -2,6 +2,7 @@ import { AmpparitApi } from '@apinasaari-slackbots/common/src/apis/ampparit';
 import { logger } from '@apinasaari-slackbots/common/src/logger';
 import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
 import { StateManager } from '@apinasaari-slackbots/common/src/state';
+import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
 
@@ -9,7 +10,7 @@ interface AppState {
   lastNotifiedTimestamp: string;
 }
 
-export const start = async () => {
+const handler: EventFunction = async () => {
   const stateManager = new StateManager<AppState>(process.env.STATE_BUCKET_NAME);
 
   const state = await stateManager.loadState();
@@ -60,3 +61,5 @@ export const start = async () => {
     lastNotifiedTimestamp: DateTime.fromMillis(updatedLatestNotified).toISO()
   });
 };
+
+export default handler;

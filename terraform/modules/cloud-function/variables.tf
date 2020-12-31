@@ -50,7 +50,7 @@ variable "build_cmd" {
 variable "entry_point" {
   type        = string
   description = "Entry point function name"
-  default     = "start"
+  default     = "default"
 }
 
 variable "event_trigger_type" {

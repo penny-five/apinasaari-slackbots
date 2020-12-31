@@ -1,6 +1,7 @@
 {
   "private": true,
   "workspaces": [
+    "apinasaari-slackbots-boilerplate",
     "apinasaari-slackbots-common",
     "apinasaari-slackbots-ence-pelaa",
     "apinasaari-slackbots-gofore",

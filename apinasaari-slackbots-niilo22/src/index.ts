@@ -1,6 +1,7 @@
 import logger from '@apinasaari-slackbots/common/src/logger';
 import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
 import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common/src/apis/youtube';
+import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
 
@@ -11,7 +12,7 @@ const computeVideoRank = (stats: YoutubeVideoStats) => {
   return stats.viewCount * multiplier;
 };
 
-export const start = async () => {
+const handler: EventFunction = async () => {
   const slackToken = await getLatestSecretVersion(process.env.SECRET_ID_SLACK_TOKEN);
 
   const slackClient = new Slack.WebClient(slackToken);
@@ -81,3 +82,5 @@ export const start = async () => {
     blocks
   });
 };
+
+export default handler;

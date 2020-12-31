@@ -1,5 +1,6 @@
 import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
 import { StateManager } from '@apinasaari-slackbots/common/src/state';
+import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import got from 'got';
 import { DateTime } from 'luxon';
@@ -71,7 +72,7 @@ interface AppState {
   notifiedStartingMatches: string[];
 }
 
-export const start = async () => {
+const handler: EventFunction = async () => {
   const stateManager = new StateManager<AppState>(process.env.STATE_BUCKET_NAME);
 
   let state = await stateManager.loadState();
@@ -123,3 +124,5 @@ export const start = async () => {
 
   await stateManager.saveState(state);
 };
+
+export default handler;
