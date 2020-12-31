@@ -33,4 +33,14 @@ variable "gofore_slackbot_channel_id" {
   description = "Slack channel id for Gofore slackbot"
 }
 
+variable "meme_generator_slackbot_slack_token" {
+  type        = string
+  description = "Meme Generator slackbot Slack token"
+}
+
+variable "meme_generator_slackbot_slack_signing_secret" {
+  type        = string
+  description = "Meme Generator slackbot Slack signing secret"
+
+}
 

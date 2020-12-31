@@ -16,9 +16,9 @@ resource "google_secret_manager_secret_version" "version" {
   secret_data = var.value
 }
 
-resource "google_secret_manager_secret_iam_member" "accessor" {
+resource "google_secret_manager_secret_iam_binding" "accessors" {
   provider  = google-beta
   secret_id = google_secret_manager_secret.secret.id
   role      = "roles/secretmanager.secretAccessor"
-  member    = var.accessor_member
+  members   = var.accessors
 }

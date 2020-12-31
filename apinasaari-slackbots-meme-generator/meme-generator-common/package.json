@@ -1,0 +1,23 @@
+{
+  "name": "@apinasaari-slackbots/meme-generator-common",
+  "version": "1.0.0",
+  "description": "Meme generator slackbot - Common",
+  "main": "index.js",
+  "author": "penny-five",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/mime-types": "2.1.0"
+  },
+  "peerDependencies": {
+    "@google-cloud/storage": "~5.7.0",
+    "class-transformer": "~0.3.1",
+    "class-transformer-validator": "~0.9.1",
+    "class-validator": "~0.12.2",
+    "mime-types": "~2.1.27",
+    "reflect-metadata": "~0.1.13"
+  },
+  "devDependencies": {
+    "typescript": "~4.0.3"
+  }
+}

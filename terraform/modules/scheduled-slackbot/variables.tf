@@ -13,21 +13,22 @@ variable "slackbot_name" {
   description = "Unique slackbot name"
 }
 
-variable "schedule" {
-  type        = string
-  description = "Invokation schedule in cron format in Europe/Helsinki tz"
+variable "memory_mb" {
+  type        = number
+  description = "Allocated memory in MB"
+  default     = 128
 }
 
 variable "environment_variables" {
   type        = map(string)
   description = "Environment variables"
-  default     = {}
+  default     = null
 }
 
 variable "secrets" {
   type        = map(string)
   description = "Secrets in (secret_name, value) map. Slackbot service account is granted access to all secrets."
-  default     = {}
+  default     = null
 }
 
 variable "build_dir" {
@@ -38,4 +39,15 @@ variable "build_dir" {
 variable "build_cmd" {
   type        = string
   description = "Build command"
+}
+
+variable "schedule" {
+  type        = string
+  description = "Invocation schedule in cron format in Europe/Helsinki tz"
+}
+
+variable "entry_point" {
+  type        = string
+  description = "Entry point function name"
+  default     = "start"
 }

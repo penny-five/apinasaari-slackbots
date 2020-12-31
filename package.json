@@ -1,7 +1,14 @@
 {
   "private": true,
   "workspaces": [
-    "apinasaari-slackbots-*"
+    "apinasaari-slackbots-common",
+    "apinasaari-slackbots-ence-pelaa",
+    "apinasaari-slackbots-gofore",
+    "apinasaari-slackbots-meme-generator/meme-generator-common",
+    "apinasaari-slackbots-meme-generator/meme-generator-painter",
+    "apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
+    "apinasaari-slackbots-niilo22",
+    "apinasaari-slackbots-solita"
   ],
   "devDependencies": {
     "@typescript-eslint/parser": "4.4.0",
@@ -18,8 +25,7 @@
   },
   "scripts": {
     "tf-fmt": "fmt () { for f in $*; do terraform fmt $f; done }; fmt",
-    "tf-fmt-all": "terraform fmt --recursive",
-    "lint-all": "eslint **/*.ts"
+    "lint": "eslint **/*.ts"
   },
   "husky": {
     "hooks": {
