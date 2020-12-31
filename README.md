@@ -1,5 +1,16 @@
 # apinasaari-slackbots
 
+<div align="center">
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/slack-icon.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/google-cloud-platform.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/typescript-icon.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/terraform.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/webpack.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/yarn.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/prettier.svg"/>
+  <img height="40" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/eslint.svg"/>
+</div>
+
 [![Status](https://github.com/penny-five/apinasaari-slackbots/workflows/deploy/badge.svg)](https://github.com/penny-five/apinasaari-slackbots/actions)
 
 Collection of slackbots to `apinasaari` slack workspace.
