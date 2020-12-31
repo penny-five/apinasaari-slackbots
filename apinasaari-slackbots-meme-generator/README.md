@@ -4,6 +4,14 @@
 
 Generates image memes on demand.
 
+## Structure
+
+Meme generator consists of three packages:
+
+- `meme-generator-slack-webhook`: Responds to interactions from Slack
+- `meme-generator-painter`: Paints meme pictures and posts them to Slack
+- `meme-generator-common`: Common utilities shared between the two packages
+
 ## Setup
 
 ### Step 1: Slack
@@ -21,8 +29,9 @@ Generates image memes on demand.
 - Deploy with GitHub actions
 
 ### Step 3: Slack
-- Enable interactivity ("Features" -> "Interactivity & Shortcuts").
-  - Set "Request URL" to `<CLOUD_FUNCTION_PUBLIC_URL>/interactions`.
-- Create a new slash command ("Features" -> "Slash Commands")
-  - Set "Command" to e.g. `/meme`
-  - Set "Request URL" to `<CLOUD_FUNCTION_PUBLIC_URL>/slash-command`.
+- Enable interactivity ("Features" -> "Interactivity & Shortcuts" -> "Interactivity").
+  - Set "Request URL" to `<SLACK_INTEGRATION_PUBLIC_URL>/interactions`.
+- Create a new shortcut ("Features" -> "Interactivity & Shortcuts" -> "Shortcuts")
+  - Set location to "Global"
+  - Fill in name and description
+  - Set "Callback ID" to `SHORTCUT_GENERATE_MEME`

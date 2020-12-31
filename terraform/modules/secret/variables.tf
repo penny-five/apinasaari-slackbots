@@ -13,8 +13,8 @@ variable "value" {
   description = "Secret value"
 }
 
-variable "accessor_member" {
-  type        = string
-  description = "Secret accessor member name"
+variable "accessors" {
+  type        = list(string)
+  description = "Secret accessors"
 }
 

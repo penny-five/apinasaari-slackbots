@@ -71,7 +71,7 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
-   --role roles/pubsub.editor
+   --role roles/pubsub.admin
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --member serviceAccount:terraform@$GCP_PROJECT_ID.iam.gserviceaccount.com \
@@ -93,7 +93,7 @@ To enable deploy using GitHub actions following secrets are required:
 | `GCP_PROJECT_ID`       | Google Cloud Platform project ID                      |
 | `GCP_SA_KEY`           | Google Cloud Platform service account key file (json) |
 | `TF_STATE_BUCKET_NAME` | Terraform state bucket name                           |
-| `SLACK_TOKEN`          | Slack user token                                      |
+| `SLACK_TOKEN`          | Slack token                                      |
 
 ### Ence pelaa slackbot
 
@@ -119,3 +119,10 @@ To enable deploy using GitHub actions following secrets are required:
 | Secret                       | Description                                        |
 | :--------------------------- | :------------------------------------------------- |
 | `GOFORE_SLACKBOT_CHANNEL_ID` | Slack channel id for Gofore slackbot notifications |
+
+### Meme generator slackbot
+
+| Secret                                         | Description          |
+| :--------------------------------------------- | :------------------- |
+| `MEME_GENERATOR_SLACKBOT_SLACK_TOKEN`          | Slack token          |
+| `MEME_GENERATOR_SLACKBOT_SLACK_SIGNING_SECRET` | Slack signing secret |

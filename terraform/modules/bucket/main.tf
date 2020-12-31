@@ -12,9 +12,14 @@ resource "google_storage_bucket" "bucket" {
   force_destroy               = true
 }
 
-resource "google_storage_bucket_iam_binding" "public" {
-  count   = var.public == true ? 1 : 0
+resource "google_storage_bucket_iam_binding" "viewers" {
   bucket  = google_storage_bucket.bucket.name
   role    = "roles/storage.objectViewer"
-  members = ["allUsers"]
+  members = var.object_viewers
+}
+
+resource "google_storage_bucket_iam_binding" "creators" {
+  bucket  = google_storage_bucket.bucket.name
+  role    = "roles/storage.objectCreator"
+  members = var.object_creators
 }

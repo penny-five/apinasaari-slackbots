@@ -9,7 +9,7 @@ module "assets_bucket" {
   gcp_project_id = var.gcp_project_id
   region         = var.region
   bucket_name    = "${var.gcp_project_id}-${var.slackbot_name}-assets"
-  public         = true
+  object_viewers = ["allUsers"]
 }
 
 resource "google_storage_bucket_object" "asset" {
