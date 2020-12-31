@@ -49,5 +49,5 @@ variable "schedule" {
 variable "entry_point" {
   type        = string
   description = "Entry point function name"
-  default     = "start"
+  default     = "default"
 }
