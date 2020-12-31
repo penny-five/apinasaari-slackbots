@@ -13,7 +13,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: '0.13.3'
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@master
         with:
           version: '311.0.0'
           project_id: ${{ secrets.GCP_PROJECT_ID }}
