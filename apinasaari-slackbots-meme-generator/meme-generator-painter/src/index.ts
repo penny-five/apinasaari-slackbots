@@ -24,7 +24,12 @@ const handler: EventFunction = async ({ data }: { data: string }) => {
 
   texts.forEach((text, index) => {
     const textArea = template.textAreas[index];
-    painter.drawText(text, textArea.top, textArea.right, textArea.bottom, textArea.left);
+    painter.drawText(text, textArea.top, textArea.right, textArea.bottom, textArea.left, {
+      textColor: template.textColor,
+      strokeColor: template.strokeColor,
+      fontWeight: template.fontWeight,
+      textAlign: template.textAlign
+    });
   });
 
   const { buffer, mimeType } = painter.toBuffer();

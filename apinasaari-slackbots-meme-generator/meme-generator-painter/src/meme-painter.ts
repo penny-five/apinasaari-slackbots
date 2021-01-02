@@ -3,12 +3,19 @@ import isEmpty from 'lodash/isEmpty';
 import last from 'lodash/last';
 import sum from 'lodash/sum';
 
-import font from '../fonts/Lato-Regular.ttf';
+import fontRegular from '../fonts/Lato-Regular.ttf';
+import fontBold from '../fonts/Lato-Bold.ttf';
 
 const CUSTOM_FONT_FAMILY = 'Lato';
 
-registerFont(font, {
-  family: CUSTOM_FONT_FAMILY
+registerFont(fontRegular, {
+  family: CUSTOM_FONT_FAMILY,
+  weight: 'regular'
+});
+
+registerFont(fontBold, {
+  family: CUSTOM_FONT_FAMILY,
+  weight: 'bold'
 });
 
 interface TextToken {
@@ -16,10 +23,22 @@ interface TextToken {
   measuredWidth: number;
 }
 
+interface TextOptions {
+  textColor?: string;
+  strokeColor?: string;
+  textAlign?: 'left' | 'center';
+  fontWeight?: 'regular' | 'bold';
+  fontSize?: number;
+}
+
 export class MemePainter {
   private static readonly MAX_FONT_SIZE = 100;
 
   private static readonly PADDING_PIXELS = 30;
+
+  private static readonly DEFAULT_TEXT_COLOR = '#000000';
+
+  private static readonly DEFAULT_FONT_WEIGHT = 'regular';
 
   private static readonly OUT_MIME_TYPE = 'image/jpeg';
 
@@ -36,7 +55,7 @@ export class MemePainter {
   constructor(private width: number, private height: number) {
     this.canvas = createCanvas(width, height);
     this.context = this.canvas.getContext('2d')!;
-    this.setupContext(this.context, MemePainter.MAX_FONT_SIZE);
+    this.setupContext(this.context);
   }
 
   drawTemplate(template: string | Buffer) {
@@ -48,7 +67,7 @@ export class MemePainter {
     this.context.drawImage(image, 0, 0, image.width, image.height);
   }
 
-  drawText(text: string, top: number, right: number, bottom: number, left: number) {
+  drawText(text: string, top: number, right: number, bottom: number, left: number, options?: TextOptions) {
     if (MemePainter.DEBUG) {
       this.context.strokeStyle = MemePainter.DEBUG_COLOR_1;
       this.context.strokeRect(left, top, right - left, bottom - top);
@@ -70,7 +89,10 @@ export class MemePainter {
     const maxHeight = bottom - top - 2 * MemePainter.PADDING_PIXELS;
 
     do {
-      const fits = this.fitText(sanitizedText, fontSize, maxWidth, maxHeight);
+      const fits = this.fitText(sanitizedText, maxWidth, maxHeight, {
+        fontSize,
+        fontWeight: options?.fontWeight
+      });
 
       if (fits) {
         break;
@@ -79,7 +101,7 @@ export class MemePainter {
       fontSize = fontSize - 1;
     } while (fontSize > 1);
 
-    this.setupContext(this.context, fontSize);
+    this.setupContext(this.context, { fontSize, fontWeight: options?.fontWeight });
 
     const tokens = this.tokenize(this.context, sanitizedText);
     const lines = this.wordwrap(tokens, maxWidth);
@@ -89,14 +111,29 @@ export class MemePainter {
     let y = bottom + 0.5 * (top - bottom) - 0.5 * (lines.length * lineHeight);
 
     for (const line of lines) {
-      let x = left + MemePainter.PADDING_PIXELS;
+      let x: number;
+
+      if (options?.textAlign === 'center') {
+        x = left + 0.5 * (right - left) - 0.5 * sum(line.map(token => token.measuredWidth));
+      } else {
+        x = left + MemePainter.PADDING_PIXELS;
+      }
+
       for (const token of line) {
         if (MemePainter.DEBUG) {
           this.context.strokeStyle = MemePainter.DEBUG_COLOR_1;
           this.context.strokeRect(x, y, token.measuredWidth, lineHeight);
         }
 
+        this.context.fillStyle = options?.textColor || MemePainter.DEFAULT_TEXT_COLOR;
         this.context.fillText(token.text, x, y + lineHeight);
+
+        if (options?.strokeColor) {
+          this.context.strokeStyle = options.strokeColor;
+          this.context.lineWidth = this.computeStrokeWidth(fontSize);
+          this.context.strokeText(token.text, x, y + lineHeight);
+        }
+
         x = x + token.measuredWidth;
       }
       y = y + lineHeight;
@@ -112,10 +149,10 @@ export class MemePainter {
    * @param maxHeight Available height in pixels
    * @returns `true` if the text fits into available estate, `false` otherwise
    */
-  private fitText(text: string, fontSize: number, maxWidth: number, maxHeight: number) {
+  private fitText(text: string, maxWidth: number, maxHeight: number, textOptions: TextOptions) {
     const canvas = createCanvas(maxWidth, maxHeight);
     const ctx = canvas.getContext('2d')!;
-    this.setupContext(ctx, fontSize);
+    this.setupContext(ctx, textOptions);
 
     const tokens = this.tokenize(ctx, this.sanitize(text));
 
@@ -123,7 +160,7 @@ export class MemePainter {
       return false;
     }
 
-    const lineHeight = this.computeLineHeight(fontSize);
+    const lineHeight = this.computeLineHeight(textOptions.fontSize);
 
     return this.wordwrap(tokens, maxWidth).length * lineHeight <= maxHeight;
   }
@@ -170,7 +207,14 @@ export class MemePainter {
         }
         return acc;
       }, [] as string[])
-      .map(text => ({ text, measuredWidth: ctx.measureText(text).width }));
+      .map(text => {
+        const metrics = ctx.measureText(text);
+
+        return {
+          text,
+          measuredWidth: Math.abs(metrics.actualBoundingBoxLeft) + Math.abs(metrics.actualBoundingBoxRight)
+        };
+      });
   }
 
   /**
@@ -206,14 +250,20 @@ export class MemePainter {
     return fontSize * 1.5;
   }
 
-  private setupContext(context: CanvasRenderingContext2D, size: number) {
-    context.font = `${size}px ${CUSTOM_FONT_FAMILY}`;
+  private computeStrokeWidth(fontSize: number) {
+    return fontSize > 50 ? 2 : 1;
+  }
+
+  private setupContext(context: CanvasRenderingContext2D, options?: TextOptions) {
+    const fontWeight = options?.fontWeight || MemePainter.DEFAULT_FONT_WEIGHT;
+    const fontSize = options?.fontSize || MemePainter.MAX_FONT_SIZE;
+    context.font = `${fontWeight} ${fontSize}px ${CUSTOM_FONT_FAMILY}`;
     context.textBaseline = 'bottom';
   }
 
   toBuffer() {
     return {
-      buffer: this.canvas.toBuffer(MemePainter.OUT_MIME_TYPE, { quality: 0.8 }),
+      buffer: this.canvas.toBuffer(MemePainter.OUT_MIME_TYPE, { quality: 0.9 }),
       mimeType: MemePainter.OUT_MIME_TYPE
     };
   }
