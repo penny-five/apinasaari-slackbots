@@ -93,7 +93,7 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
    --role roles/cloudfunctions.admin
 ```
 
-## Deploy from GitHub
+## Secrets
 
 To enable deploy using GitHub actions following secrets are required:
 
@@ -137,3 +137,9 @@ To enable deploy using GitHub actions following secrets are required:
 | :--------------------------------------------- | :------------------- |
 | `MEME_GENERATOR_SLACKBOT_SLACK_TOKEN`          | Slack token          |
 | `MEME_GENERATOR_SLACKBOT_SLACK_SIGNING_SECRET` | Slack signing secret |
+
+## Testing
+
+All slackbots use [Functions Framework for Node.js](https://github.com/GoogleCloudPlatform/functions-framework-nodejs) and can be started locally with `yarn dev`.
+
+For local testing of functions that use Pub/Sub see the instructions [here](https://github.com/GoogleCloudPlatform/functions-framework-nodejs/blob/master/docs/events.md).
