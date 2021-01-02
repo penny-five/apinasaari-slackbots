@@ -12,10 +12,8 @@
     "@google-cloud/functions-framework": "1.7.1",
     "@google-cloud/storage": "5.7.0",
     "@slack/web-api": "5.12.0",
-    "@types/canvas-txt": "3.0.0",
     "@types/mime-types": "2.1.0",
     "canvas": "2.6.1",
-    "canvas-txt": "3.0.0",
     "class-transformer": "0.3.1",
     "class-transformer-validator": "0.9.1",
     "class-validator": "0.12.2",
@@ -37,7 +35,7 @@
   },
   "scripts": {
     "build": "rimraf dist/**/* && webpack",
-    "serve": "nodemon --watch dist --exec \"env-cmd --silent functions-framework --source=dist --target default\"",
+    "serve": "nodemon --watch dist --exec \"env-cmd --silent functions-framework --source=dist --target default --signature-type=event\"",
     "dev": "NODE_ENV=development concurrently \"yarn build --watch\" \"yarn serve\""
   }
 }

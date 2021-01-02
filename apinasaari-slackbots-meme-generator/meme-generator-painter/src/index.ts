@@ -8,8 +8,8 @@ import type { EventFunction } from '@google-cloud/functions-framework/build/src/
 import { MemePainter } from './meme-painter';
 import { client as slackClient } from './slack';
 
-const handler: EventFunction = async ({ data }: { data: string }) => {
-  const payload = TaskPayload.parse(JSON.parse(Buffer.from(data, 'base64').toString()));
+const handler: EventFunction = async ({ message }: { message: { data: string } }) => {
+  const payload = TaskPayload.parse(JSON.parse(Buffer.from(message.data, 'base64').toString()));
 
   logger.info(payload);
 
