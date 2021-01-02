@@ -1,7 +1,15 @@
-import { Canvas, Image, CanvasRenderingContext2D, createCanvas } from 'canvas';
+import { Canvas, Image, CanvasRenderingContext2D, createCanvas, registerFont } from 'canvas';
 import isEmpty from 'lodash/isEmpty';
 import last from 'lodash/last';
 import sum from 'lodash/sum';
+
+import font from '../fonts/Lato-Regular.ttf';
+
+const CUSTOM_FONT_FAMILY = 'Lato';
+
+registerFont(font, {
+  family: CUSTOM_FONT_FAMILY
+});
 
 interface TextToken {
   text: string;
@@ -11,15 +19,15 @@ interface TextToken {
 export class MemePainter {
   private static readonly MAX_FONT_SIZE = 100;
 
-  private static readonly PADDING_PIXELS = 20;
+  private static readonly PADDING_PIXELS = 30;
 
   private static readonly OUT_MIME_TYPE = 'image/jpeg';
+
+  private static readonly DEBUG = false;
 
   private static readonly DEBUG_COLOR_1 = '#FF0000';
 
   private static readonly DEBUG_COLOR_2 = '#0000FF';
-
-  private static readonly DEBUG = true;
 
   private canvas: Canvas;
 
@@ -28,7 +36,7 @@ export class MemePainter {
   constructor(private width: number, private height: number) {
     this.canvas = createCanvas(width, height);
     this.context = this.canvas.getContext('2d')!;
-    this.context.textBaseline = 'bottom';
+    this.setupContext(this.context, MemePainter.MAX_FONT_SIZE);
   }
 
   drawTemplate(template: string | Buffer) {
@@ -71,7 +79,7 @@ export class MemePainter {
       fontSize = fontSize - 1;
     } while (fontSize > 1);
 
-    this.setFontSize(this.context, fontSize);
+    this.setupContext(this.context, fontSize);
 
     const tokens = this.tokenize(this.context, sanitizedText);
     const lines = this.wordwrap(tokens, maxWidth);
@@ -107,8 +115,7 @@ export class MemePainter {
   private fitText(text: string, fontSize: number, maxWidth: number, maxHeight: number) {
     const canvas = createCanvas(maxWidth, maxHeight);
     const ctx = canvas.getContext('2d')!;
-    this.setFontSize(ctx, fontSize);
-    ctx.textBaseline = 'bottom';
+    this.setupContext(ctx, fontSize);
 
     const tokens = this.tokenize(ctx, this.sanitize(text));
 
@@ -199,8 +206,9 @@ export class MemePainter {
     return fontSize * 1.5;
   }
 
-  private setFontSize(context: CanvasRenderingContext2D, size: number) {
-    context.font = `${size}px serif`;
+  private setupContext(context: CanvasRenderingContext2D, size: number) {
+    context.font = `${size}px ${CUSTOM_FONT_FAMILY}`;
+    context.textBaseline = 'bottom';
   }
 
   toBuffer() {
