@@ -1,16 +1,21 @@
 {
   "private": true,
-  "workspaces": [
-    "apinasaari-slackbots-boilerplate",
-    "apinasaari-slackbots-common",
-    "apinasaari-slackbots-ence-pelaa",
-    "apinasaari-slackbots-gofore",
-    "apinasaari-slackbots-meme-generator/meme-generator-common",
-    "apinasaari-slackbots-meme-generator/meme-generator-painter",
-    "apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
-    "apinasaari-slackbots-niilo22",
-    "apinasaari-slackbots-solita"
-  ],
+  "workspaces": {
+    "packages": [
+      "apinasaari-slackbots-boilerplate",
+      "apinasaari-slackbots-common",
+      "apinasaari-slackbots-ence-pelaa",
+      "apinasaari-slackbots-gofore",
+      "apinasaari-slackbots-meme-generator/meme-generator-common",
+      "apinasaari-slackbots-meme-generator/meme-generator-painter",
+      "apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
+      "apinasaari-slackbots-niilo22",
+      "apinasaari-slackbots-solita"
+    ],
+    "nohoist": [
+      "husky"
+    ]
+  },
   "devDependencies": {
     "@typescript-eslint/parser": "4.4.0",
     "eslint": "7.11.0",
