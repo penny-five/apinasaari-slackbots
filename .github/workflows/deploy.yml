@@ -12,7 +12,7 @@ jobs:
           node-version: 12.x
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: '0.13.3'
+          terraform_version: '0.14.3'
       - uses: google-github-actions/setup-gcloud@master
         with:
           version: '311.0.0'

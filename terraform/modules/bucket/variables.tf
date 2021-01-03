@@ -1,8 +1,3 @@
-variable "gcp_project_id" {
-  type        = string
-  description = "Google Cloud Platform project id"
-}
-
 variable "region" {
   type        = string
   description = "Google Cloud Platform region"

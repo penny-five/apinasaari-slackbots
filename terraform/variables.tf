@@ -43,4 +43,3 @@ variable "meme_generator_slackbot_slack_signing_secret" {
   description = "Meme Generator slackbot Slack signing secret"
 
 }
-

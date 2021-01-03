@@ -1,41 +1,31 @@
-
-provider "google-beta" {
-  version = "3.39.0"
-  project = var.gcp_project_id
-  region  = "europe-west1"
-}
-
 locals {
   slackbot_name = "meme-generator"
 }
 
+data "google_project" "project" {
+}
+
 resource "google_service_account" "webhook" {
-  provider     = google-beta
   account_id   = "${local.slackbot_name}-slack-webhook"
   display_name = "Meme generator slackbot Slack webhook service account"
 }
 
 resource "google_service_account" "painter" {
-  provider     = google-beta
   account_id   = "${local.slackbot_name}-painter"
   display_name = "Meme generator slackbot service account"
 }
 
 module "assets_bucket" {
-  source = "../../modules/slackbot-assets-bucket"
-
-  gcp_project_id = var.gcp_project_id
-  region         = "europe-west1"
-  slackbot_name  = local.slackbot_name
-  assets_dir     = "${path.module}/../../../apinasaari-slackbots-meme-generator/assets"
+  source        = "../../modules/slackbot-assets-bucket"
+  region        = "europe-west1"
+  slackbot_name = local.slackbot_name
+  assets_dir    = "${path.module}/../../../apinasaari-slackbots-meme-generator/assets"
 }
 
 module "output_bucket" {
-  source = "../../modules/bucket"
-
-  gcp_project_id  = var.gcp_project_id
+  source          = "../../modules/bucket"
   region          = "europe-west1"
-  bucket_name     = "${var.gcp_project_id}-${local.slackbot_name}-output"
+  bucket_name     = "${data.google_project.project.project_id}-${local.slackbot_name}-output"
   object_viewers  = ["allUsers"]
   object_creators = ["serviceAccount:${google_service_account.painter.email}"]
 }
@@ -51,9 +41,7 @@ resource "google_pubsub_topic_iam_member" "publisher" {
 }
 
 module "slack_webhook_function" {
-  source = "../../modules/cloud-function"
-
-  gcp_project_id        = var.gcp_project_id
+  source                = "../../modules/cloud-function"
   region                = "europe-west1"
   name                  = "${local.slackbot_name}-slack-webhook"
   service_account_email = google_service_account.webhook.email
@@ -76,9 +64,7 @@ module "slack_webhook_function" {
 }
 
 module "painter_function" {
-  source = "../../modules/cloud-function"
-
-  gcp_project_id         = var.gcp_project_id
+  source                 = "../../modules/cloud-function"
   region                 = "europe-west1"
   name                   = "${local.slackbot_name}-painter"
   service_account_email  = google_service_account.painter.email

@@ -1,11 +1,4 @@
-provider "google-beta" {
-  version = "3.39.0"
-  project = var.gcp_project_id
-  region  = var.region
-}
-
-provider "null" {
-  version = "2.1.2"
+data "google_project" "project" {
 }
 
 resource "null_resource" "build" {
@@ -35,24 +28,21 @@ resource "null_resource" "zip_files" {
 }
 
 resource "google_storage_bucket" "sources" {
-  name                        = "${var.gcp_project_id}-${var.name}-sources"
-  project                     = var.gcp_project_id
+  name                        = "${data.google_project.project.project_id}-${var.name}-sources"
   location                    = var.region
   uniform_bucket_level_access = true
 }
 
 resource "google_storage_bucket_object" "archive" {
-  provider = google-beta
-  name     = "${var.name}-${uuid()}"
-  source   = "${var.build_dir}/dist/app.zip"
-  bucket   = google_storage_bucket.sources.name
+  name   = "${var.name}-${uuid()}"
+  source = "${var.build_dir}/dist/app.zip"
+  bucket = google_storage_bucket.sources.name
   depends_on = [
     null_resource.zip_files
   ]
 }
 
 resource "google_cloudfunctions_function" "function" {
-  provider              = google-beta
   name                  = var.name
   description           = var.name
   runtime               = "nodejs12"
@@ -70,11 +60,11 @@ resource "google_cloudfunctions_function" "function" {
     }
   }
   environment_variables = merge(
-    { GCP_PROJECT_ID = var.gcp_project_id },
+    { GCP_PROJECT_ID = data.google_project.project.project_id },
     var.environment_variables,
     { for secret_name in var.secrets :
       format("SECRET_ID_%s", replace(upper(secret_name), "-", "_")) =>
-      format("projects/%s/secrets/%s-slackbot-%s", var.gcp_project_id, var.name, secret_name)
+      format("projects/%s/secrets/%s-slackbot-%s", data.google_project.project.project_id, var.name, secret_name)
     }
   )
 }
