@@ -1,0 +1,18 @@
+{
+  "name": "@apinasaari-slackbots/common-logger",
+  "version": "1.0.0",
+  "description": "Apinasaari slackbots common - Logger",
+  "main": "src/index.ts",
+  "author": "penny-five",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/pino": "6.3.2"
+  },
+  "peerDependencies": {
+    "pino": "~6.7.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.0.3"
+  }
+}

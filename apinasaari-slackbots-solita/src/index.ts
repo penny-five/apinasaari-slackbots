@@ -1,7 +1,7 @@
-import { AmpparitApi } from '@apinasaari-slackbots/common/src/apis/ampparit';
-import { logger } from '@apinasaari-slackbots/common/src/logger';
-import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
-import { StateManager } from '@apinasaari-slackbots/common/src/state';
+import { AmpparitApi } from '@apinasaari-slackbots/common-apis';
+import { logger } from '@apinasaari-slackbots/common-logger';
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common-secrets';
+import { StateManager } from '@apinasaari-slackbots/common-state-manager';
 import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';

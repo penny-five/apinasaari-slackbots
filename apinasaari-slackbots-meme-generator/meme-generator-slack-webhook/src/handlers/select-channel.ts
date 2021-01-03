@@ -1,4 +1,4 @@
-import logger from '@apinasaari-slackbots/common/src/logger';
+import logger from '@apinasaari-slackbots/common-logger';
 
 const handler = async (payload: any) => {
   logger.info(payload);

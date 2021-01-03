@@ -1,4 +1,4 @@
-import logger from '@apinasaari-slackbots/common/src/logger';
+import logger from '@apinasaari-slackbots/common-logger';
 import { findTemplateById } from '@apinasaari-slackbots/meme-generator-common/src/config';
 import { getTemplateFile } from '@apinasaari-slackbots/meme-generator-common/src/buckets/assets';
 import { uploadFile } from '@apinasaari-slackbots/meme-generator-common/src/buckets/output';

@@ -1,7 +1,7 @@
-import logger from '@apinasaari-slackbots/common/src/logger';
+import logger from '@apinasaari-slackbots/common-logger';
 import { findTemplateById, getAllTemplates } from '@apinasaari-slackbots/meme-generator-common/src/config';
-
 import { getTemplateUrl } from '@apinasaari-slackbots/meme-generator-common/src/buckets/assets';
+
 import { client as slackClient } from '../slack';
 import { SlackBlockActionInteractionPayload } from '../slack/models';
 import { createMemeBuilderView } from '../slack/views';

@@ -1,5 +1,5 @@
-import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
-import { StateManager } from '@apinasaari-slackbots/common/src/state';
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common-secrets';
+import StateManager from '@apinasaari-slackbots/common-state-manager';
 import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import got from 'got';

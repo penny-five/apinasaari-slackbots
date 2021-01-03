@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@apinasaari-slackbots/common": "1.0.0",
+    "@apinasaari-slackbots/common-logger": "1.0.0",
     "@apinasaari-slackbots/meme-generator-common": "1.0.0",
     "@google-cloud/functions-framework": "1.7.1",
     "@google-cloud/storage": "5.7.0",

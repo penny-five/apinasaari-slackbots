@@ -3,7 +3,10 @@
   "workspaces": {
     "packages": [
       "apinasaari-slackbots-boilerplate",
-      "apinasaari-slackbots-common",
+      "apinasaari-slackbots-common-apis",
+      "apinasaari-slackbots-common-logger",
+      "apinasaari-slackbots-common-secrets",
+      "apinasaari-slackbots-common-state-manager",
       "apinasaari-slackbots-ence-pelaa",
       "apinasaari-slackbots-gofore",
       "apinasaari-slackbots-meme-generator/meme-generator-common",

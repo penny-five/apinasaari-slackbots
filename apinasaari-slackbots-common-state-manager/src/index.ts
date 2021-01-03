@@ -1,7 +1,6 @@
+import logger from '@apinasaari-slackbots/common-logger';
 import { Storage, Bucket } from '@google-cloud/storage';
 import * as _ from 'lodash';
-
-import logger from './logger';
 
 export class StateManager<T> {
   private static readonly STATE_FILE_NAME = 'state.json';
@@ -46,3 +45,5 @@ export class StateManager<T> {
     this.cachedState = _.cloneDeep(state);
   }
 }
+
+export default StateManager;

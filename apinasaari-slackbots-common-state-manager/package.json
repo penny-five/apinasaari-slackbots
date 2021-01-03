@@ -1,21 +1,18 @@
 {
-  "name": "@apinasaari-slackbots/common",
+  "name": "@apinasaari-slackbots/common-state-manager",
   "version": "1.0.0",
-  "description": "Common lib for apinasaari slackbots",
-  "main": "index.js",
+  "description": "Apinasaari slackbots common - State manager",
+  "main": "src/index.ts",
   "author": "penny-five",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@types/lodash": "4.14.162",
-    "@types/luxon": "1.25.0",
-    "@types/pino": "6.3.2"
+    "@apinasaari-slackbots/common-logger": "1.0.0",
+    "@types/lodash": "4.14.162"
   },
   "peerDependencies": {
     "@google-cloud/storage": "~5.7.0",
-    "got": "~11.7.0",
     "lodash": "~4.17.20",
-    "luxon": "~1.25.0",
     "pino": "~6.7.0"
   },
   "devDependencies": {

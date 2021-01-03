@@ -1,4 +1,4 @@
-import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common-secrets';
 
 import memoize from 'lodash/memoize';
 

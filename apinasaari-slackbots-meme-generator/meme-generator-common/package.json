@@ -2,7 +2,6 @@
   "name": "@apinasaari-slackbots/meme-generator-common",
   "version": "1.0.0",
   "description": "Meme generator slackbot - Common",
-  "main": "index.js",
   "author": "penny-five",
   "license": "MIT",
   "private": true,

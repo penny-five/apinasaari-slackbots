@@ -1,4 +1,4 @@
-import logger from '@apinasaari-slackbots/common/src/logger';
+import logger from '@apinasaari-slackbots/common-logger';
 import { TaskPayload } from '@apinasaari-slackbots/meme-generator-common/src/tasks';
 
 import { SlackViewSubmissionInteractionPayload } from '../slack/models';

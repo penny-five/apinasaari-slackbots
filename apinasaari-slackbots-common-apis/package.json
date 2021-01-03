@@ -1,0 +1,19 @@
+{
+  "name": "@apinasaari-slackbots/common-apis",
+  "version": "1.0.0",
+  "description": "Apinasaari slackbots common - APIs",
+  "main": "src/index.ts",
+  "author": "penny-five",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/luxon": "1.25.0"
+  },
+  "peerDependencies": {
+    "got": "~11.7.0",
+    "luxon": "~1.25.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.0.3"
+  }
+}

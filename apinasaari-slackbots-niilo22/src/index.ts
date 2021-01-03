@@ -1,6 +1,6 @@
-import logger from '@apinasaari-slackbots/common/src/logger';
-import { getLatestSecretVersion } from '@apinasaari-slackbots/common/src/secrets';
-import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common/src/apis/youtube';
+import logger from '@apinasaari-slackbots/common-logger';
+import { getLatestSecretVersion } from '@apinasaari-slackbots/common-secrets';
+import { YoutubeApi, YoutubeVideoStats } from '@apinasaari-slackbots/common-apis';
 import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
 import { DateTime } from 'luxon';
