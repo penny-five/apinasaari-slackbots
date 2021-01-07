@@ -41,5 +41,9 @@ variable "meme_generator_slackbot_slack_token" {
 variable "meme_generator_slackbot_slack_signing_secret" {
   type        = string
   description = "Meme Generator slackbot Slack signing secret"
+}
 
+variable "sotaraportti_slackbot_channel_id" {
+  type        = string
+  description = "Slack channel id for Sotaraportti slackbot"
 }

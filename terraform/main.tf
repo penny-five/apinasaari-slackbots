@@ -53,3 +53,9 @@ module "apinasaari_slackbot_meme_generator" {
   slack_token          = var.meme_generator_slackbot_slack_token
   slack_signing_secret = var.meme_generator_slackbot_slack_signing_secret
 }
+
+module "apinasaari_slackbot_sotaraportti" {
+  source           = "./slackbots/sotaraportti"
+  slack_token      = var.slack_token
+  slack_channel_id = var.sotaraportti_slackbot_channel_id
+}

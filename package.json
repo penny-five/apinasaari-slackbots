@@ -13,7 +13,8 @@
       "apinasaari-slackbots-meme-generator/meme-generator-painter",
       "apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
       "apinasaari-slackbots-niilo22",
-      "apinasaari-slackbots-solita"
+      "apinasaari-slackbots-solita",
+      "apinasaari-slackbots-sotaraportti"
     ],
     "nohoist": [
       "husky"
