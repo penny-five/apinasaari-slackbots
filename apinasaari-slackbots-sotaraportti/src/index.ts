@@ -80,7 +80,7 @@ const handler: EventFunction = async () => {
   const slackClient = new Slack.WebClient(slackToken);
 
   for (const video of newSotaraporttiVideos) {
-    const message = `https://www.bitchute.com/video/${video.id}/`;
+    const message = `Noniin, se on sotarapsan aika: https://www.bitchute.com/video/${video.id}/`;
 
     await slackClient.chat.postMessage({
       channel: process.env.SLACK_CHANNEL_ID,
