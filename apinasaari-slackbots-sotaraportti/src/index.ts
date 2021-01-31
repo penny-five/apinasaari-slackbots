@@ -43,6 +43,11 @@ class BitChuteScraper {
   }
 }
 
+const isSotaraportti = (video: BitChuteVideo) => {
+  const title = video.title.toLowerCase();
+  return title.startsWith('sotaraportti') || title.startsWith('sotarapsa');
+};
+
 const handler: EventFunction = async () => {
   const stateManager = new StateManager<AppState>(process.env.STATE_BUCKET_NAME);
 
@@ -61,7 +66,7 @@ const handler: EventFunction = async () => {
 
   const { videos } = await scraper.getChannelVideos(TOTUUDEN_ETSIJAT_CHANNEL_ID);
 
-  const sotaraporttiVideos = videos.filter(video => video.title.toLowerCase().startsWith('sotaraportti'));
+  const sotaraporttiVideos = videos.filter(isSotaraportti);
 
   if (sotaraporttiVideos.length === 0) {
     logger.error('Something went wrong');
