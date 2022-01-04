@@ -2,7 +2,7 @@
   "name": "@apinasaari-slackbots/game-pass",
   "version": "1.0.0",
   "description": "Game Pass slackbot",
-  "main": "src/index.ts",
+  "main": "index.js",
   "author": "penny-five",
   "license": "MIT",
   "private": true,
