@@ -1,20 +1,23 @@
 {
   "private": true,
+  "engines": {
+    "node": "12"
+  },
   "workspaces": {
     "packages": [
-      "apinasaari-slackbots-boilerplate",
-      "apinasaari-slackbots-common-apis",
-      "apinasaari-slackbots-common-logger",
-      "apinasaari-slackbots-common-secrets",
-      "apinasaari-slackbots-common-state-manager",
-      "apinasaari-slackbots-ence-pelaa",
-      "apinasaari-slackbots-gofore",
-      "apinasaari-slackbots-meme-generator/meme-generator-common",
-      "apinasaari-slackbots-meme-generator/meme-generator-painter",
-      "apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
-      "apinasaari-slackbots-niilo22",
-      "apinasaari-slackbots-solita",
-      "apinasaari-slackbots-sotaraportti"
+      "packages/apinasaari-slackbots-boilerplate",
+      "packages/apinasaari-slackbots-common-apis",
+      "packages/apinasaari-slackbots-common-logger",
+      "packages/apinasaari-slackbots-common-secrets",
+      "packages/apinasaari-slackbots-common-state-manager",
+      "packages/apinasaari-slackbots-ence-pelaa",
+      "packages/apinasaari-slackbots-gofore",
+      "packages/apinasaari-slackbots-meme-generator/meme-generator-common",
+      "packages/apinasaari-slackbots-meme-generator/meme-generator-painter",
+      "packages/apinasaari-slackbots-meme-generator/meme-generator-slack-webhook",
+      "packages/apinasaari-slackbots-niilo22",
+      "packages/apinasaari-slackbots-solita",
+      "packages/apinasaari-slackbots-sotaraportti"
     ],
     "nohoist": [
       "husky"
