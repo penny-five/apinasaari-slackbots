@@ -30,11 +30,13 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
     "husky": "7.0.4",
+    "lerna": "^4.0.0",
     "lint-staged": "10.4.0",
     "prettier": "2.2.1"
   },
   "scripts": {
     "prepare": "husky install",
+    "bootstrap": "lerna bootstrap",
     "tf-fmt": "fmt () { for f in $*; do terraform fmt $f; done }; fmt",
     "lint": "eslint **/*.ts",
     "prettify": "prettier --write **/*.{ts,js,md,json,yml,yaml}"
@@ -55,5 +57,6 @@
     "**/*.tf": [
       "yarn tf-fmt"
     ]
-  }
+  },
+  "name": "apinasaari-slackbots"
 }

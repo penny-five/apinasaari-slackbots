@@ -21,6 +21,8 @@ jobs:
           export_default_credentials: true
       - name: Install package dependencies
         run: yarn install
+      - name: Bootstrap project
+        run: yarn bootstrap
       - name: Terraform init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET_NAME"
         working-directory: ./terraform

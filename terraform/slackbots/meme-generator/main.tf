@@ -19,7 +19,7 @@ module "assets_bucket" {
   source        = "../../modules/slackbot-assets-bucket"
   region        = "europe-west1"
   slackbot_name = local.slackbot_name
-  assets_dir    = "${path.module}/../../../apinasaari-slackbots-meme-generator/assets"
+  assets_dir    = "${path.module}/../../../packages/apinasaari-slackbots-meme-generator/assets"
 }
 
 module "output_bucket" {
@@ -46,7 +46,7 @@ module "slack_webhook_function" {
   name                  = "${local.slackbot_name}-slack-webhook"
   service_account_email = google_service_account.webhook.email
   memory_mb             = 512
-  build_dir             = "${path.module}/../../../apinasaari-slackbots-meme-generator/meme-generator-slack-webhook"
+  build_dir             = "${path.module}/../../../packages/apinasaari-slackbots-meme-generator/meme-generator-slack-webhook"
   build_cmd             = "yarn build"
   http_trigger          = true
   environment_variables = {
@@ -69,7 +69,7 @@ module "painter_function" {
   name                   = "${local.slackbot_name}-painter"
   service_account_email  = google_service_account.painter.email
   memory_mb              = 512
-  build_dir              = "${path.module}/../../../apinasaari-slackbots-meme-generator/meme-generator-painter"
+  build_dir              = "${path.module}/../../../packages/apinasaari-slackbots-meme-generator/meme-generator-painter"
   build_cmd              = "yarn build"
   event_trigger_type     = "google.pubsub.topic.publish"
   event_trigger_resource = google_pubsub_topic.tasks.name

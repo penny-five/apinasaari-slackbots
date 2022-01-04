@@ -3,7 +3,7 @@ module "slackbot" {
   region        = "europe-west1"
   slackbot_name = "sotaraportti"
   schedule      = "*/30 * * * *"
-  build_dir     = "${path.module}/../../../apinasaari-slackbots-sotaraportti"
+  build_dir     = "${path.module}/../../../packages/apinasaari-slackbots-sotaraportti"
   build_cmd     = "yarn build"
   secrets = {
     slack-token = var.slack_token

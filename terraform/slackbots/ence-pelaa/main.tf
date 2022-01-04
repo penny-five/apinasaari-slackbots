@@ -3,7 +3,7 @@ module "slackbot" {
   region        = "europe-west1"
   slackbot_name = "ence-pelaa"
   schedule      = "0 * * * *"
-  build_dir     = "${path.module}/../../../apinasaari-slackbots-ence-pelaa"
+  build_dir     = "${path.module}/../../../packages/apinasaari-slackbots-ence-pelaa"
   build_cmd     = "yarn build"
   secrets = {
     slack-token = var.slack_token
