@@ -38,9 +38,10 @@ jobs:
       TF_VAR_slack_token: ${{ secrets.SLACK_TOKEN }}
       TF_VAR_youtube_api_key: ${{ secrets.YOUTUBE_API_KEY }}
       TF_VAR_ence_pelaa_slackbot_channel_id: ${{ secrets.ENCE_PELAA_SLACKBOT_CHANNEL_ID }}
+      TF_VAR_game_pass_slackbot_channel_id: ${{ secrets.GAME_PASS_SLACKBOT_CHANNEL_ID }}
+      TF_VAR_gofore_slackbot_channel_id: ${{ secrets.GOFORE_SLACKBOT_CHANNEL_ID }}
       TF_VAR_niilo22_slackbot_channel_id: ${{ secrets.NIILO22_SLACKBOT_CHANNEL_ID }}
       TF_VAR_solita_slackbot_channel_id: ${{ secrets.SOLITA_SLACKBOT_CHANNEL_ID }}
-      TF_VAR_gofore_slackbot_channel_id: ${{ secrets.GOFORE_SLACKBOT_CHANNEL_ID }}
       TF_VAR_sotaraportti_slackbot_channel_id: ${{ secrets.SOTARAPORTTI_SLACKBOT_CHANNEL_ID }}
       TF_VAR_meme_generator_slackbot_slack_token: ${{ secrets.MEME_GENERATOR_SLACKBOT_SLACK_TOKEN }}
       TF_VAR_meme_generator_slackbot_slack_signing_secret: ${{ secrets.MEME_GENERATOR_SLACKBOT_SLACK_SIGNING_SECRET }}

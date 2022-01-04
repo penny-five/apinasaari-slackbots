@@ -12,6 +12,7 @@
       "packages/apinasaari-slackbots-common-secrets",
       "packages/apinasaari-slackbots-common-state-manager",
       "packages/apinasaari-slackbots-ence-pelaa",
+      "packages/apinasaari-slackbots-game-pass",
       "packages/apinasaari-slackbots-gofore",
       "packages/apinasaari-slackbots-meme-generator/meme-generator-common",
       "packages/apinasaari-slackbots-meme-generator/meme-generator-painter",

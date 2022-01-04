@@ -12,6 +12,9 @@ const config = {
     ignored: /node_modules/
   },
   target: 'node',
+  node: {
+    __dirname: true
+  },
   output: {
     filename: 'index.js',
     path: path.join(__dirname, 'dist'),

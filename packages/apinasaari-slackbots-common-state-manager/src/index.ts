@@ -7,7 +7,7 @@ export class StateManager<T> {
 
   private bucket: Bucket;
 
-  private cachedState: T;
+  private cachedState: T | null = null;
 
   constructor(bucketName: string) {
     const storageClient = new Storage();

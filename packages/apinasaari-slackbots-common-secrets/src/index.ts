@@ -7,5 +7,5 @@ export const getLatestSecretVersion = async (secretName: string) => {
     name: `${secretName}/versions/latest`
   });
 
-  return secretResponse.payload.data.toString();
+  return secretResponse.payload!.data!.toString();
 };

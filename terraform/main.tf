@@ -59,3 +59,10 @@ module "apinasaari_slackbot_sotaraportti" {
   slack_token      = var.slack_token
   slack_channel_id = var.sotaraportti_slackbot_channel_id
 }
+
+module "apinasaari_slackbot_game_pass" {
+  source           = "./slackbots/game-pass"
+  slack_token      = var.slack_token
+  slack_channel_id = var.game_pass_slackbot_channel_id
+}
+

@@ -47,3 +47,8 @@ variable "sotaraportti_slackbot_channel_id" {
   type        = string
   description = "Slack channel id for Sotaraportti slackbot"
 }
+
+variable "game_pass_slackbot_channel_id" {
+  type        = string
+  description = "Slack channel id for Game Pass slackbot"
+}
