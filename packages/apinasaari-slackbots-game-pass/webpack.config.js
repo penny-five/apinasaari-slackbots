@@ -21,7 +21,7 @@ const config = {
     libraryTarget: 'commonjs'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts']
   },
   optimization: {
     minimize: false
