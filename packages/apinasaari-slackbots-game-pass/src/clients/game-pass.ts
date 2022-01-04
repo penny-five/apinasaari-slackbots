@@ -29,6 +29,7 @@ export interface GamePassProductLocalizedProperty {
 }
 
 export interface GamePassProduct {
+  ProductType: string;
   LocalizedProperties: GamePassProductLocalizedProperty[];
 }
 
@@ -55,8 +56,8 @@ export class GamePassClient {
     const response = await this.recoClient
       .get('Lists/Computed/New', {
         searchParams: {
-          Market: 'us',
-          Language: 'en',
+          Market: 'fi',
+          Language: 'fi',
           ItemTypes: 'Game',
           deviceFamily: 'Windows.Xbox',
           count: 30
@@ -72,8 +73,8 @@ export class GamePassClient {
       .get('products', {
         searchParams: {
           bigIds: ids.join(','),
-          market: 'US',
-          languages: 'en-us'
+          market: 'FI',
+          languages: 'fi-fi'
         }
       })
       .json<GamePassProductDetailsResponse>();
