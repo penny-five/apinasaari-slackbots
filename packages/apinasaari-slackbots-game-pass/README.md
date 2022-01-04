@@ -2,4 +2,4 @@
 
 ![screenshot](screenshot.png)
 
-Notifies of any new games in PC Game Pass catalog.
+Notifies when any new games are added to PC Game Pass catalog.

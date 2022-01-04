@@ -131,6 +131,12 @@ To enable deploy using GitHub actions following secrets are required:
 | :--------------------------- | :------------------------------------------------- |
 | `GOFORE_SLACKBOT_CHANNEL_ID` | Slack channel id for Gofore slackbot notifications |
 
+### Game Pass slackbot
+
+| Secret                          | Description                                           |
+| :------------------------------ | :---------------------------------------------------- |
+| `GAME_PASS_SLACKBOT_CHANNEL_ID` | Slack channel id for Game Pass slackbot notifications |
+
 ### Meme generator slackbot
 
 | Secret                                         | Description          |
