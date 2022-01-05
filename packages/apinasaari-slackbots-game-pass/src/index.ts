@@ -3,6 +3,7 @@ import { getLatestSecretVersion } from '@apinasaari-slackbots/common-secrets';
 import StateManager from '@apinasaari-slackbots/common-state-manager';
 import { EventFunction } from '@google-cloud/functions-framework/build/src/functions';
 import * as Slack from '@slack/web-api';
+import { truncate } from 'lodash';
 
 import { GamePassClient } from './clients/game-pass';
 import { OpenCriticClient } from './clients/open-critic';
@@ -69,10 +70,24 @@ const handler: EventFunction = async () => {
       gamePassGame.LocalizedProperties[0].DeveloperName || gamePassGame.LocalizedProperties[0].PublisherName;
     const imageUrl = gamePassGame.LocalizedProperties[0].Images[0]?.Uri;
 
-    const texts = [':tada: Uusi peli julkaistu Game Passissa', `*${name}*`, author || '-'];
+    const texts = [':tada: Uusi peli lisätty Game Passiin', '\n', `*${name}*`, author || '-'];
 
     if (openCriticGame != null && openCriticGame.averageScore > 0) {
-      texts.push(`Open Critic: *${Math.floor(openCriticGame.averageScore)} pistettä*`);
+      let openCriticText = `Open Critic: *${Math.floor(openCriticGame.averageScore)} pistettä*`;
+      if (openCriticGame.averageScore > 80) {
+        openCriticText += ' :star:';
+      }
+      texts.push(openCriticText);
+    }
+
+    if (gamePassGame.LocalizedProperties[0].ProductDescription) {
+      texts.push(
+        ...truncate(gamePassGame.LocalizedProperties[0].ProductDescription, { length: 400 })
+          .split('\n')
+          .map(paragraph => paragraph.trim())
+          .filter(paragraph => paragraph.length > 0)
+          .map(paragraph => `_${paragraph}_`)
+      );
     }
 
     const message: Slack.SectionBlock = {
@@ -100,9 +115,9 @@ const handler: EventFunction = async () => {
     });
   }
 
-  // await stateManager.saveState({
-  //   notifiedGameIds: [...new Set([...state.notifiedGameIds, ...newIds])]
-  // });
+  await stateManager.saveState({
+    notifiedGameIds: [...new Set([...state.notifiedGameIds, ...newIds])]
+  });
 };
 
 export default handler;
