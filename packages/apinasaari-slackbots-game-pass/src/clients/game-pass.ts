@@ -1,10 +1,6 @@
 import got from 'got';
 
-export interface GamePassRecoListResponse<T> {
-  Id: string;
-  Name: string;
-  Items: T[];
-}
+export type GamePassCatalogResponse = [{ siglId: string; title: string }, ...{ id: string }[]];
 
 export interface GamePassRecoListItem {
   Id: string;
@@ -38,38 +34,41 @@ export interface GamePassProductDetailsResponse {
 }
 
 export class GamePassClient {
-  private readonly recoClient: typeof got;
-
   private readonly catalogClient: typeof got;
 
+  private readonly displayCatalogClient: typeof got;
+
+  private static readonly CATALOG_ID = 'f13cf6b4-57e6-4459-89df-6aec18cf0538';
+
   constructor() {
-    this.recoClient = got.extend({
-      prefixUrl: 'https://reco-public.rec.mp.microsoft.com/channels/Reco/V8.0'
+    this.catalogClient = got.extend({
+      prefixUrl: 'https://catalog.gamepass.com'
     });
 
-    this.catalogClient = got.extend({
+    this.displayCatalogClient = got.extend({
       prefixUrl: 'https://displaycatalog.mp.microsoft.com/v7.0'
     });
   }
 
-  async getNewGameIds(count = 50) {
-    const response = await this.recoClient
-      .get('Lists/Computed/New', {
+  async getLatestGames(count = 50) {
+    const response = await this.catalogClient
+      .get('sigls/v2', {
         searchParams: {
-          Market: 'fi',
-          Language: 'fi',
-          ItemTypes: 'Game',
-          deviceFamily: 'Windows.Xbox',
-          count: 30
+          id: GamePassClient.CATALOG_ID,
+          language: 'fi-fi',
+          market: 'FI',
+          count
         }
       })
-      .json<GamePassRecoListResponse<GamePassRecoListItem>>();
+      .json<GamePassCatalogResponse>();
 
-    return response.Items.map(item => item.Id);
+    const [_category, ...products] = response;
+
+    return products.map(product => product.id);
   }
 
   async batchGetProductDetails(ids: string[]) {
-    const response = await this.catalogClient
+    const response = await this.displayCatalogClient
       .get('products', {
         searchParams: {
           bigIds: ids.join(','),

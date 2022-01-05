@@ -28,7 +28,7 @@ const handler: EventFunction = async () => {
 
   const openCriticClient = new OpenCriticClient();
 
-  const ids = await gamePassClient.getNewGameIds();
+  const ids = await gamePassClient.getLatestGames();
 
   if (isInitialLoad) {
     await stateManager.saveState({
@@ -100,9 +100,9 @@ const handler: EventFunction = async () => {
     });
   }
 
-  await stateManager.saveState({
-    notifiedGameIds: [...new Set([...state.notifiedGameIds, ...newIds])]
-  });
+  // await stateManager.saveState({
+  //   notifiedGameIds: [...new Set([...state.notifiedGameIds, ...newIds])]
+  // });
 };
 
 export default handler;

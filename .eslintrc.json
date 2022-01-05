@@ -4,6 +4,7 @@
   "parser": "@typescript-eslint/parser",
   "rules": {
     "no-console": "error",
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
   }
 }
