@@ -73,7 +73,13 @@ export class GamePassClient {
         searchParams: {
           bigIds: ids.join(','),
           market: 'FI',
-          languages: 'fi-fi'
+          languages: 'fi-fi',
+          /**
+           * Required by the API, probably some sort of tracing ID.
+           *
+           * Using what whas used when making the request in browser.
+           */
+          'MS-CV': 'DGU1mcuYo0WMMp+F.1'
         }
       })
       .json<GamePassProductDetailsResponse>();
