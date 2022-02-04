@@ -25,12 +25,25 @@ export class OpenCriticClient {
 
   constructor() {
     this.client = got.extend({
-      prefixUrl: 'https://api.opencritic.com/api'
+      prefixUrl: 'https://opencritic.com',
+      /**
+       * Add few headers. This should fool the API into thinking we're a browser.
+       */
+      headers: {
+        authority: 'opencritic.com',
+        referer: 'https://opencritic.com/',
+        'user-agent': [
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+          'AppleWebKit/537.36 (KHTML, like Gecko)',
+          'Chrome/80.0.3987.132',
+          'Safari/537.36'
+        ].join(' ')
+      }
     });
   }
 
   async search(criteria: string) {
-    const response = await this.client('meta/search', {
+    const response = await this.client('api/meta/search', {
       searchParams: {
         criteria
       }
@@ -40,7 +53,7 @@ export class OpenCriticClient {
   }
 
   async getGame(id: number) {
-    const response = await this.client(`game/${id}`).json<OpenCriticGame>();
+    const response = await this.client(`api/game/${id}`).json<OpenCriticGame>();
     return response;
   }
 }
