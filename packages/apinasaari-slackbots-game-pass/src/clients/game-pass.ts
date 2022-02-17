@@ -38,7 +38,7 @@ export class GamePassClient {
 
   private readonly displayCatalogClient: typeof got;
 
-  private static readonly CATALOG_ID = 'f13cf6b4-57e6-4459-89df-6aec18cf0538';
+  private static readonly CATALOG_ID = '3fdd7f57-7092-4b65-bd40-5a9dac1b2b84';
 
   constructor() {
     this.catalogClient = got.extend({
