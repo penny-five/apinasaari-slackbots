@@ -25,13 +25,13 @@ export class OpenCriticClient {
 
   constructor() {
     this.client = got.extend({
-      prefixUrl: 'https://opencritic.com',
+      prefixUrl: 'https://api.opencritic.com',
       /**
        * Add few headers. This should fool the API into thinking we're a browser.
        */
       headers: {
-        authority: 'opencritic.com',
-        referer: 'https://opencritic.com/',
+        authority: 'api.opencritic.com',
+        referer: 'https://api.opencritic.com/',
         'user-agent': [
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
           'AppleWebKit/537.36 (KHTML, like Gecko)',
