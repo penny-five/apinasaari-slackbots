@@ -26,7 +26,8 @@
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "4.4.0",
+    "@typescript-eslint/parser": "4.8.2",
+    "audit-ci": "6.2.1",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-config-standard": "14.1.1",
@@ -42,6 +43,7 @@
   "scripts": {
     "prepare": "husky install",
     "bootstrap": "lerna bootstrap",
+    "audit-ci": "audit-ci --important --high",
     "tf-fmt": "fmt () { for f in $*; do terraform fmt $f; done }; fmt",
     "lint": "eslint **/*.ts",
     "prettify": "prettier --write **/*.{ts,js,md,json,yml,yaml}"
