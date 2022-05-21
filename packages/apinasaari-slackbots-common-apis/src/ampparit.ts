@@ -33,7 +33,8 @@ export class AmpparitApi {
       .get('search', {
         searchParams: {
           q: searchphrase,
-          limit: 20
+          // Cannot be set below 25 or Ampparit API will throw HTTP 403 (Forbidden)
+          limit: 30
         }
       })
       .json<AmpparitPaginatedResponse<AmpparitSearchResult>>();
