@@ -11,7 +11,6 @@ interface OpenCriticGame {
   id: string;
   name: string;
   firstReleaseDate: string;
-  averageScore: number;
   medianScore: number;
   topCriticScore: number;
   numReviews: number;

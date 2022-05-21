@@ -72,9 +72,9 @@ const handler: EventFunction = async () => {
 
     const texts = [':tada: Uusi peli lisätty Game Passiin', '\n', `*${name}*`, author || '-'];
 
-    if (openCriticGame != null && openCriticGame.averageScore > 0) {
-      let openCriticText = `Open Critic: *${Math.floor(openCriticGame.averageScore)} pistettä*`;
-      if (openCriticGame.averageScore > 80) {
+    if (openCriticGame != null && openCriticGame.topCriticScore > 0) {
+      let openCriticText = `Open Critic: *${Math.round(openCriticGame.topCriticScore)} pistettä*`;
+      if (openCriticGame.topCriticScore >= 80) {
         openCriticText += ' :star:';
       }
       texts.push(openCriticText);
