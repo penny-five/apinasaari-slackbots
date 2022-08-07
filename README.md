@@ -112,13 +112,6 @@ To enable deploy using GitHub actions following secrets are required:
 | :------------------------------- | :----------------------------------------------------- |
 | `ENCE_PELAA_SLACKBOT_CHANNEL_ID` | Slack channel id for Ence Pelaa slackbot notifications |
 
-### Niilo22 slackbot
-
-| Secret                        | Description                                         |
-| :---------------------------- | :-------------------------------------------------- |
-| `NIILO22_SLACKBOT_CHANNEL_ID` | Slack channel id for Niilo22 slackbot notifications |
-| `YOUTUBE_API_KEY`             | YouTube API key                                     |
-
 ### Solita slackbot
 
 | Secret                       | Description                                        |

@@ -29,13 +29,6 @@ module "apinasaari_slackbot_ence_pelaa" {
   slack_channel_id = var.ence_pelaa_slackbot_channel_id
 }
 
-module "apinasaari_slackbot_niilo22" {
-  source           = "./slackbots/niilo22"
-  slack_token      = var.slack_token
-  slack_channel_id = var.niilo22_slackbot_channel_id
-  youtube_api_key  = var.youtube_api_key
-}
-
 module "apinasaari_slackbot_solita" {
   source           = "./slackbots/solita"
   slack_token      = var.slack_token
@@ -52,12 +45,6 @@ module "apinasaari_slackbot_meme_generator" {
   source               = "./slackbots/meme-generator"
   slack_token          = var.meme_generator_slackbot_slack_token
   slack_signing_secret = var.meme_generator_slackbot_slack_signing_secret
-}
-
-module "apinasaari_slackbot_sotaraportti" {
-  source           = "./slackbots/sotaraportti"
-  slack_token      = var.slack_token
-  slack_channel_id = var.sotaraportti_slackbot_channel_id
 }
 
 module "apinasaari_slackbot_game_pass" {
