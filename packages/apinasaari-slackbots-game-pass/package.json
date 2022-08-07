@@ -12,7 +12,7 @@
   "dependencies": {
     "@apinasaari-slackbots/common-logger": "1.0.0",
     "@google-cloud/functions-framework": "2.1.0",
-    "@google-cloud/secret-manager": "3.2.0",
+    "@google-cloud/secret-manager": "4.0.0",
     "@google-cloud/storage": "5.7.0",
     "@slack/web-api": "6.7.1",
     "got": "11.7.0",
