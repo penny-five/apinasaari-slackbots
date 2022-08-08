@@ -11,6 +11,7 @@
       "packages/apinasaari-slackbots-common-logger",
       "packages/apinasaari-slackbots-common-secrets",
       "packages/apinasaari-slackbots-common-state-manager",
+      "packages/apinasaari-slackbots-emoji-stats",
       "packages/apinasaari-slackbots-ence-pelaa",
       "packages/apinasaari-slackbots-game-pass",
       "packages/apinasaari-slackbots-gofore",
