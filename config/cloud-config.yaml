@@ -4,42 +4,30 @@ package_update: true
 package_upgrade: true
 
 packages:
+  - caddy
+  - podman
+  - podman-compose
   - unattended-upgrades
+  - git
 
 groups:
-  - caddy
-  - n8n
+  - apinasaari-slackbots
 
 users:
   - name: admin
-    groups: [sudo]
+    groups: [sudo, apinasaari-slackbots]
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh_authorized_keys:
       - ${ssh_public_key}
-  - name: caddy
-    system: true
-    groups: caddy
-    shell: /bin/false
-    home: /var/lib/caddy
-    create_home: false
   - name: n8n
-    system: true
-    groups: n8n
-    shell: /bin/false
-    home: /opt/apinasaari-slackbots
-    create_home: true
+    groups: [apinasaari-slackbots]
+    shell: /bin/bash
 
 apt:
   sources:
     caddy:
       source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/debian $RELEASE main
-
-packages:
-  - podman
-  - caddy
-  - python3-pip
-  - git
 
 write_files:
   - path: /etc/ssh/sshd_config.d/99-security.conf
@@ -54,12 +42,17 @@ write_files:
       ClientAliveCountMax 2
 
 runcmd:
-  - pip3 install podman-compose==1.50
   - |
-    if [ ! -d /opt/apinasaari-slackbots/.git ]; then
-      git clone https://github.com/penny-five/apinasaari-slackbots.git /opt/apinasaari-slackbots
+    if [ ! -d /opt/apinasaari-slackbots ]; then
+      mkdir -p /opt/apinasaari-slackbots
+      chown admin:apinasaari-slackbots /opt/apinasaari-slackbots
+      sudo -u admin git clone https://github.com/penny-five/apinasaari-slackbots.git /opt/apinasaari-slackbots
     fi
-  - chown -R n8n:n8n /opt/apinasaari-slackbots
+  - chown -R admin:apinasaari-slackbots /opt/apinasaari-slackbots
+  - chmod -R g+rw /opt/apinasaari-slackbots
+  # Configure podman for n8n user (rootless containers)
+  - usermod --add-subuids 100000-165535 --add-subgids 100000-165535 n8n
+  - sudo -u n8n podman system migrate
   # Create symlinks for config files
   - ln -sf /opt/apinasaari-slackbots/config/Caddyfile /etc/caddy/Caddyfile
   - ln -sf /opt/apinasaari-slackbots/config/services/n8n.service /etc/systemd/system/n8n.service

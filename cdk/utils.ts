@@ -11,10 +11,10 @@ export const loadSshKey = (keyPath: string) => {
   };
 };
 
-export const loadCloudConfig = (cloudConfigPath: string, templateParams: Record<string, string>) => {
+export const loadCloudConfig = (cloudConfigPath: string, config: { templateParams: Record<string, string> }) => {
   let template = fs.readFileSync(cloudConfigPath, 'utf8');
   // Poor man's templating a'la ${key} replacement
-  for (const [key, value] of Object.entries(templateParams)) {
+  for (const [key, value] of Object.entries(config.templateParams)) {
     template = template.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), value);
   }
 

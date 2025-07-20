@@ -86,11 +86,13 @@ class ApinasaariSlackbotsStack extends TerraformStack {
       type: 'ipv4',
       assigneeType: 'server',
       datacenter: 'hel1-dc2', // Helsinki, Finland
-      autoDelete: true
+      autoDelete: false
     });
 
     const cloudConfig = loadCloudConfig(path.resolve(__dirname, '..', './config/cloud-config.yaml'), {
-      ssh_public_key: adminKey.publicKey
+      templateParams: {
+        ssh_public_key: adminKey.publicKey
+      }
     });
 
     const server = new Server(this, 'n8n_server', {
@@ -124,7 +126,7 @@ class ApinasaariSlackbotsStack extends TerraformStack {
             user: 'admin',
             privateKey: adminKey.privateKey
           },
-          inline: ['cd /opt/apinasaari-slackbots && update.sh']
+          inline: ['cd /opt/apinasaari-slackbots && sh update.sh']
         }
       ],
       triggers: {
