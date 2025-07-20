@@ -1,0 +1,3 @@
+{
+  "extends": "@apinasaari-slackbots/tsconfig/tsconfig.json"
+}

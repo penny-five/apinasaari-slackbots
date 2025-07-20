@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules
+
+# Turborepo caches and build artifacts
+.turbo
+apps/*/dist
+packages/*/dist
+
+# Docker compose mounts
+n8n_data
+n8n_state
+
+# Terraform generated files
+.gen
+*.tfplan
+*.tfvars
+*.tfstate
+cdktf.out
+
+# General ignores
+out
+*.DS_Store
+*.backup
+*.log
+*.env

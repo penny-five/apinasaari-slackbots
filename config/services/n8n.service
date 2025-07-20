@@ -1,0 +1,26 @@
+[Unit]
+Description=apinasaari-slackbots n8n service
+After=network-online.target caddy.service podman.service
+Wants=network-online.target
+Requires=podman.service caddy.service
+
+[Service]
+Type=simple
+User=n8n
+Group=n8n
+WorkingDirectory=/opt/apinasaari-slackbots
+ExecStart=/usr/local/bin/podman-compose up
+ExecStop=/usr/local/bin/podman-compose down
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+TimeoutStopSec=30
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/apinasaari-slackbots
+
+[Install]
+WantedBy=multi-user.target

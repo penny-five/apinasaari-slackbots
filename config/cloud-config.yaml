@@ -1,0 +1,71 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - unattended-upgrades
+
+groups:
+  - caddy
+  - n8n
+
+users:
+  - name: admin
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+  - name: caddy
+    system: true
+    groups: caddy
+    shell: /bin/false
+    home: /var/lib/caddy
+    create_home: false
+  - name: n8n
+    system: true
+    groups: n8n
+    shell: /bin/false
+    home: /opt/apinasaari-slackbots
+    create_home: true
+
+apt:
+  sources:
+    caddy:
+      source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/debian $RELEASE main
+
+packages:
+  - podman
+  - caddy
+  - python3-pip
+  - git
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/99-security.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      PubkeyAuthentication yes
+      Protocol 2
+      X11Forwarding no
+      MaxAuthTries 3
+      ClientAliveInterval 300
+      ClientAliveCountMax 2
+
+runcmd:
+  - pip3 install podman-compose==1.50
+  - |
+    if [ ! -d /opt/apinasaari-slackbots/.git ]; then
+      git clone https://github.com/penny-five/apinasaari-slackbots.git /opt/apinasaari-slackbots
+    fi
+  - chown -R n8n:n8n /opt/apinasaari-slackbots
+  # Create symlinks for config files
+  - ln -sf /opt/apinasaari-slackbots/config/Caddyfile /etc/caddy/Caddyfile
+  - ln -sf /opt/apinasaari-slackbots/config/services/n8n.service /etc/systemd/system/n8n.service
+  # Enable and restart services
+  - systemctl daemon-reload
+  - systemctl enable caddy n8n
+  - systemctl start caddy n8n
+
+final_message: 'Cloud-init finished successfully at $TIMESTAMP'

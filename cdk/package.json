@@ -1,0 +1,25 @@
+{
+  "name": "@apinasaari-slackbots/cdk",
+  "version": "1.0.0",
+  "description": "Terraform CDK setup for Apinasaari Slackbots",
+  "private": true,
+  "devDependencies": {
+    "@apinasaari-slackbots/tsconfig": "workspace:*",
+    "cdktf": "0.21.0",
+    "cdktf-cli": "0.21.0",
+    "constructs": "10.4.2",
+    "dotenv": "17.2.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.3",
+    "zod": "4.0.5"
+  },
+  "scripts": {
+    "start": "ts-node main.ts",
+    "cdk:get": "cdktf get",
+    "cdk:synth": "cdktf synth",
+    "cdk:diff": "cdktf diff",
+    "cdk:watch": "cdktf watch",
+    "cdk:deploy": "cdktf deploy",
+    "cdk:destroy": "cdktf destroy"
+  }
+}

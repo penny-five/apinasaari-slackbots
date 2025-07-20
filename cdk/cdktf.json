@@ -1,0 +1,6 @@
+{
+  "language": "typescript",
+  "app": "pnpm start",
+  "projectId": "59cfb69f-f00b-469c-8ef4-841d5eeca490",
+  "terraformProviders": ["hetznercloud/hcloud@1.51", "null@3.2.4"]
+}

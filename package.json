@@ -1,0 +1,23 @@
+{
+  "name": "apinasaari-slackbots",
+  "version": "1.0.0",
+  "description": "A collection of Slack bots for Apinasaari",
+  "private": true,
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "turbo": "2.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.4",
+    "prettier": "3.6.2"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "turbo:build": "turbo run build",
+    "podman:up": "podman compose up --build --detach",
+    "podman:down": "podman compose down"
+  }
+}

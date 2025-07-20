@@ -1,0 +1,7 @@
+packages:
+  - cdk
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - esbuild

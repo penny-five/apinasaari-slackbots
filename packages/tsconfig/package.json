@@ -1,0 +1,9 @@
+{
+  "name": "@apinasaari-slackbots/tsconfig",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configuration for Apinasaari Slackbots",
+  "private": true,
+  "devDependencies": {
+    "@tsconfig/node22": "22.0.2"
+  }
+}
