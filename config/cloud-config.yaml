@@ -9,6 +9,7 @@ packages:
   - podman-compose
   - unattended-upgrades
   - uidmap
+  - slirp4netns
   - git
 
 groups:
@@ -66,7 +67,7 @@ runcmd:
   - chmod -R g+rw /opt/apinasaari-slackbots
   # Configure podman for n8n user (rootless containers)
   - sudo loginctl enable-linger n8n
-  - sysctl --system
+  - sudo sysctl --system
   - sudo -u n8n podman system migrate
   # Create n8n data directories with proper ownership
   - mkdir -p /opt/apinasaari-slackbots/n8n_data /opt/apinasaari-slackbots/n8n_state

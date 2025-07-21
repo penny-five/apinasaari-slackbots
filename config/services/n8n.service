@@ -1,24 +1,24 @@
 [Unit]
 Description=apinasaari-slackbots n8n service
-After=network-online.target caddy.service
+After=network-online.target
 Wants=network-online.target
-Requires=podman.service caddy.service
 
 [Service]
-Type=exec
+Type=notify
 User=n8n
 Group=n8n
 WorkingDirectory=/opt/apinasaari-slackbots
 Environment="PODMAN_USERNS=keep-id"
 Environment="XDG_RUNTIME_DIR=/run/user/1001"
 ExecStartPre=/usr/bin/podman-compose pull
-ExecStart=/usr/bin/podman-compose up
+ExecStart=/usr/bin/podman-compose up --no-deps --remove-orphans
 ExecStop=/usr/bin/podman-compose down
-ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
 Restart=always
 RestartSec=10
-TimeoutStartSec=60
-TimeoutStopSec=30
+TimeoutStartSec=120
+TimeoutStopSec=60
 
 NoNewPrivileges=true
 PrivateTmp=true
