@@ -23,7 +23,7 @@ services:
       - N8N_DIAGNOSTICS_ENABLED=false
     volumes:
       - n8n_data:/home/node/.n8n
-      - n8n_state:/home/node/.n8n_state
+      - /opt/n8n/state:/opt/n8n/state
     networks:
       - n8n_network
     restart: unless-stopped
@@ -35,4 +35,3 @@ networks:
 volumes:
   caddy_data:
   n8n_data:
-  n8n_state:

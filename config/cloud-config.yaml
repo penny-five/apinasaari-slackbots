@@ -18,13 +18,19 @@ packages:
   - unattended-upgrades
   - git
 
+groups:
+  - n8n
+
 users:
   - name: admin
-    groups: sudo
+    groups: sudo, n8n
     shell: /bin/bash
     sudo: 'ALL=(ALL) NOPASSWD:ALL'
     ssh_authorized_keys:
       - ${ssh_public_key}
+  - name: node
+    system: true
+    groups: n8n
 
 write_files:
   - path: /etc/ssh/sshd_config.d/99-security.conf
@@ -48,6 +54,10 @@ runcmd:
     fi
   # Create symlinks for config files
   - ln -sf /opt/apinasaari-slackbots/config/services/n8n.service /etc/systemd/system/n8n.service
+  # Create folders for storing n8n state
+  - sudo mkdir -p /opt/n8n/state
+  - sudo chown -R root:n8n /opt/n8n/state
+  - sudo chmod -R 775 /opt/n8n/state
   # Enable and restart services
   - systemctl daemon-reload
   - systemctl enable n8n

@@ -48,7 +48,7 @@ class ApinasaariSlackbotsStack extends TerraformStack {
     });
 
     const firewall = new Firewall(this, 'n8n_server_fw', {
-      name: 'n8n-server',
+      name: 'n8n-server-fw',
       rule: [
         {
           direction: 'in',
