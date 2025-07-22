@@ -7,9 +7,8 @@ RequiresMountsFor=%t/containers
 [Service]
 Type=simple
 WorkingDirectory=/opt/apinasaari-slackbots
-Environment=PODMAN_SYSTEMD_UNIT=%n
-ExecStart=/usr/bin/podman-compose up --remove-orphans
-ExecStop=/usr/bin/podman-compose stop
+ExecStart=/usr/bin/docker compose up --remove-orphans
+ExecStop=/usr/bin/docker compose stop
 Restart=always
 TimeoutStartSec=120
 TimeoutStopSec=60

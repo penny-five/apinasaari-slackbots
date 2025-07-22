@@ -34,8 +34,5 @@ networks:
 
 volumes:
   caddy_data:
-    driver: overlay2
   n8n_data:
-    driver: overlay2
   n8n_state:
-    driver: overlay2
