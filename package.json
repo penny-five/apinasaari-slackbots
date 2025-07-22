@@ -17,7 +17,7 @@
   "scripts": {
     "format": "prettier --write .",
     "turbo:build": "turbo run build",
-    "podman:up": "podman compose up --build --detach",
-    "podman:down": "podman compose down"
+    "docker:up": "docker compose up --build --detach",
+    "docker:down": "docker compose down"
   }
 }
