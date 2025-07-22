@@ -1,4 +1,18 @@
 services:
+  caddy:
+    image: docker.io/caddy:2.10.0-alpine
+    container_name: caddy
+    ports:
+      - '80:80'
+      - '443:443'
+      - '5678:5678'
+    volumes:
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    networks:
+      - n8n_network
+    restart: unless-stopped
+
   n8n:
     image: docker.io/n8nio/n8n:1.102.0
     container_name: n8n
@@ -7,8 +21,6 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_DIAGNOSTICS_ENABLED=false
-    ports:
-      - '127.0.0.1:5678:5678'
     volumes:
       - n8n_data:/home/node/.n8n
       - n8n_state:/home/node/.n8n_state
@@ -21,6 +33,8 @@ networks:
     driver: bridge
 
 volumes:
+  caddy_data:
+    driver: overlay2
   n8n_data:
     driver: overlay2
   n8n_state:

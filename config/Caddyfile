@@ -1,5 +1,5 @@
 n8n.hevoiskuljetuskonserni.com {
-  reverse_proxy 127.0.0.1:5678 {
+  reverse_proxy n8n:5678 {
     header_up Host {host}
     header_up X-Real-IP {remote}
     header_up X-Forwarded-For {remote}

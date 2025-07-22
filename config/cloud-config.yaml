@@ -4,7 +4,6 @@ package_update: true
 package_upgrade: true
 
 packages:
-  - caddy
   - podman
   - podman-compose
   - unattended-upgrades
@@ -17,11 +16,6 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh_authorized_keys:
       - ${ssh_public_key}
-
-apt:
-  sources:
-    caddy:
-      source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/debian $RELEASE main
 
 write_files:
   - path: /etc/ssh/sshd_config.d/99-security.conf
@@ -44,11 +38,10 @@ runcmd:
       sudo -u admin git clone https://github.com/penny-five/apinasaari-slackbots.git /opt/apinasaari-slackbots
     fi
   # Create symlinks for config files
-  - ln -sf /opt/apinasaari-slackbots/config/Caddyfile /etc/caddy/Caddyfile
   - ln -sf /opt/apinasaari-slackbots/config/services/n8n.service /etc/systemd/system/n8n.service
   # Enable and restart services
   - systemctl daemon-reload
-  - systemctl enable caddy n8n
-  - systemctl start caddy n8n
+  - systemctl enable n8n
+  - systemctl start n8n
 
 final_message: 'Cloud-init finished successfully at $TIMESTAMP'
