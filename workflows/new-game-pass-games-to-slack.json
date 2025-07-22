@@ -2,14 +2,6 @@
   "name": "Send a message to selected Slack channel when new Game Pass games become available",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [-208, -160],
-      "id": "e9064b0c-1ed3-4f42-8b4f-785abd69db9c",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
         "conditions": {
           "options": {
@@ -36,8 +28,11 @@
       },
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
-      "position": [240, -464],
-      "id": "768e2053-0e24-46c4-b05c-b4f8b301e95a",
+      "position": [
+        -896,
+        96
+      ],
+      "id": "0ad1dd58-e11c-4863-8139-ca2d0f0b465f",
       "name": "Filter only products"
     },
     {
@@ -60,19 +55,25 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [16, -464],
-      "id": "2dcc1f14-cdfc-4dcd-a925-2a6c7994e638",
+      "position": [
+        -1120,
+        96
+      ],
+      "id": "2818a963-dfbf-4d22-be9e-be8d61b29307",
       "name": "Fetch Game Pass catalog"
     },
     {
       "parameters": {
-        "fileSelector": "/home/node/.n8n_state/workflow_game_pass.json",
+        "fileSelector": "/opt/n8n/state/workflow_game_pass.json",
         "options": {}
       },
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
-      "position": [240, 64],
-      "id": "4272cecf-497e-4134-9d9f-a659ac1e48a9",
+      "position": [
+        -896,
+        624
+      ],
+      "id": "48bfec15-f404-4868-af3f-92f6abc2d93a",
       "name": "Read workflow state",
       "alwaysOutputData": true
     },
@@ -103,8 +104,11 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [464, 208],
-      "id": "5ae55ba2-5f82-46ca-a4e0-1734e1f314df",
+      "position": [
+        -672,
+        768
+      ],
+      "id": "e902f83f-395a-4383-9304-05aa798e91b4",
       "name": "Is first time running the workflow?"
     },
     {
@@ -113,22 +117,28 @@
       },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
-      "position": [464, -464],
-      "id": "98a41fcd-0b17-4d2f-81a8-66e9ec3835b6",
+      "position": [
+        -672,
+        96
+      ],
+      "id": "bce047ab-6c93-4e53-97ec-3473ca42b346",
       "name": "Take first 10 products"
     },
     {
       "parameters": {
         "operation": "write",
-        "fileName": "/home/node/.n8n_state/workflow_game_pass.json",
+        "fileName": "/opt/n8n/state/workflow_game_pass.json",
         "options": {
           "append": false
         }
       },
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
-      "position": [2480, -320],
-      "id": "831e7334-1162-4a49-97ad-84a8a1b0aac6",
+      "position": [
+        1344,
+        240
+      ],
+      "id": "fb99eae9-1e96-4512-8a36-c097bae44775",
       "name": "Write state file to disk"
     },
     {
@@ -138,8 +148,11 @@
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
-      "position": [2256, -320],
-      "id": "5cfaa5e3-d890-4b82-a6bb-af4dd5a6b274",
+      "position": [
+        1120,
+        240
+      ],
+      "id": "b87097a4-f051-4bea-a426-1c104cdc4312",
       "name": "Convert to File"
     },
     {
@@ -149,20 +162,12 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
-      "position": [688, -128],
-      "id": "1ba2b334-c2e9-4668-bef4-94cf3b2dd72b",
+      "position": [
+        -448,
+        432
+      ],
+      "id": "1a12bff3-f0cb-43d6-8b1c-7fe6f624f30d",
       "name": "Is first run"
-    },
-    {
-      "parameters": {
-        "mode": "chooseBranch",
-        "useDataOfInput": 2
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [688, -352],
-      "id": "5e360574-5f3e-4ae9-90f4-40956c816ea3",
-      "name": "Is existing workflow"
     },
     {
       "parameters": {
@@ -171,8 +176,11 @@
       },
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
-      "position": [464, 16],
-      "id": "918b0ce0-fce8-44b3-b263-034a9ac0d5f5",
+      "position": [
+        -672,
+        576
+      ],
+      "id": "f16550c7-27a2-4584-96db-d840274f9542",
       "name": "Extract from File"
     },
     {
@@ -182,8 +190,11 @@
       },
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
-      "position": [688, 64],
-      "id": "354a695c-5b55-4681-819e-38cd04cd813f",
+      "position": [
+        -448,
+        624
+      ],
+      "id": "d27ae866-c30d-47da-b39a-5676b501c37f",
       "name": "Split Out"
     },
     {
@@ -200,8 +211,11 @@
       },
       "type": "n8n-nodes-base.compareDatasets",
       "typeVersion": 2.3,
-      "position": [912, -384],
-      "id": "5937a443-7edc-4535-a4a8-7341d070896d",
+      "position": [
+        -224,
+        176
+      ],
+      "id": "db38b292-efb9-45d8-b184-970d10f1709a",
       "name": "Compare Datasets"
     },
     {
@@ -232,8 +246,11 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1136, -560],
-      "id": "1efe75f9-0fb3-476a-a992-e1e62c076430",
+      "position": [
+        0,
+        0
+      ],
+      "id": "ccca1033-63fa-4060-8f0b-b3d81a3e278e",
       "name": "Fetch product information"
     },
     {
@@ -241,33 +258,36 @@
         "select": "channel",
         "channelId": {
           "__rl": true,
-          "value": "C4X68FGB1",
+          "value": "C85D6SB5Z",
           "mode": "id"
         },
         "messageType": "block",
-        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Uusi peli lisätty Game Passiin\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": {{ $json.title.toJsonString() }},\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": {{ ':game_die: '.concat($json.categories.join(', ')).toJsonString() }}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": {{ $json.description.slice(0, 100).toJsonString()}}\n\t\t\t},\n\t\t\t\"accessory\": {\n\t\t\t\t\"type\": \"image\",\n\t\t\t\t\"image_url\": {{ ($json.previewImage || \"https://placehold.co/100x100?text=lol\").toJsonString()}},\n\"alt_text\": \"Game cover\"\n\t\t\t}\n\t\t}\n\t]\n}",
+        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": \"Uusi peli lisätty Game Passiin\",\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"header\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\"text\": {{ $json.title.toJsonString() }},\n\t\t\t\t\"emoji\": true\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": {{ ':game_die: '.concat($json.categories.join(', ')).toJsonString() }}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": {{ $json.description.slice(0,500).toJsonString() }}\n\t\t\t},\n\t\t\t\"accessory\": {\n\t\t\t\t\"type\": \"image\",\n\t\t\t\t\"image_url\": {{ ($json.previewImage || \"https://placehold.jp/3d4070/ffffff/150x150.png?text=lol\").toJsonString()}},\n\"alt_text\": \"Game cover\"\n\t\t\t}\n\t\t}\n\t]\n}",
         "text": "=",
         "otherOptions": {
           "includeLinkToWorkflow": false,
           "botProfile": {
             "imageValues": {
               "profilePhotoType": "emoji",
-              "icon_emoji": "cyberdaddari"
+              "icon_emoji": "paka2"
             }
           },
-          "sendAsUser": "Game Pass Bot"
+          "sendAsUser": "Game Bass"
         }
       },
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.3,
-      "position": [1584, -560],
-      "id": "a44a9fd1-9637-4d6d-919b-37f274df7d64",
+      "position": [
+        448,
+        0
+      ],
+      "id": "8bfa3ef9-3f49-47b8-a230-35b122fd8ecb",
       "name": "Send a message",
       "webhookId": "e55374d8-c283-45f3-b7fa-fbb2337cd868",
       "credentials": {
         "slackApi": {
-          "id": "PDJpvi8RNXRPbY80",
-          "name": "Cyberdaddari"
+          "id": "5AkZm8Q5BbL2QQoI",
+          "name": "Slack account"
         }
       }
     },
@@ -317,8 +337,11 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [1360, -560],
-      "id": "8e696e81-939d-480b-9f0f-d8a9f1eb2e65",
+      "position": [
+        224,
+        0
+      ],
+      "id": "5b7b06ac-704b-4315-b234-23185baaaeb1",
       "name": "Extract fields for Slack message"
     },
     {
@@ -328,45 +351,72 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
-      "position": [1808, -512],
-      "id": "0962e36a-6e80-4a33-a6e3-a2c9ccd4846c",
+      "position": [
+        672,
+        48
+      ],
+      "id": "67249fdc-e0d3-445b-b3b3-e8dcf05191d9",
       "name": "Wait for Slack message"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
-      "position": [2032, -416],
-      "id": "2e609bc6-2717-4582-9e09-dd5f76c7f618",
+      "position": [
+        896,
+        144
+      ],
+      "id": "2c86143d-1be8-4ead-b1b3-d9f6484a46b7",
       "name": "Combine all games"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
-      "position": [1808, -304],
-      "id": "af69f6df-54d5-479f-8c11-8af19e3e5216",
+      "position": [
+        672,
+        256
+      ],
+      "id": "7916261b-46f9-44e3-b616-851ed8b3dca7",
       "name": "Combine all previously processed games"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "15 * * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1408,
+        688
+      ],
+      "id": "f167593e-2f96-4d52-923a-c95ccdad1929",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -448,
+        208
+      ],
+      "id": "6f2df0cf-2d02-45e0-b48d-3491a5d9ecda",
+      "name": "Is existing workflow?"
     }
   ],
   "pinData": {},
   "connections": {
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Fetch Game Pass catalog",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Read workflow state",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Filter only products": {
       "main": [
         [
@@ -416,7 +466,7 @@
         ],
         [
           {
-            "node": "Is existing workflow",
+            "node": "Is existing workflow?",
             "type": "main",
             "index": 0
           }
@@ -427,7 +477,7 @@
       "main": [
         [
           {
-            "node": "Is existing workflow",
+            "node": "Is existing workflow?",
             "type": "main",
             "index": 1
           },
@@ -455,17 +505,6 @@
         [
           {
             "node": "Convert to File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Is existing workflow": {
-      "main": [
-        [
-          {
-            "node": "Compare Datasets",
             "type": "main",
             "index": 0
           }
@@ -590,20 +629,44 @@
           }
         ]
       ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read workflow state",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Game Pass catalog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is existing workflow?": {
+      "main": [
+        [
+          {
+            "node": "Compare Datasets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Europe/Helsinki",
-    "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": -1
+    "executionOrder": "v1"
   },
-  "versionId": "3698ed71-91ad-44e0-aca5-74dfa54c24af",
+  "versionId": "3c520bdc-c2be-4f91-8873-f2a85f14d1d4",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "25a2ce4f6ebed76d3dab109f10b9081a976429b3be7b441e219d1f56c668cbf2"
+    "instanceId": "8781618fb42ba9c6ee340a249035491acf5ff7dc604b282b1749d80087a97f07"
   },
-  "id": "JFrRmXtcnx9ifqah",
+  "id": "GInczBaEYPxVvTfp",
   "tags": []
 }
