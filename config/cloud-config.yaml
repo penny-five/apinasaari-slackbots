@@ -8,23 +8,15 @@ packages:
   - podman
   - podman-compose
   - unattended-upgrades
-  - uidmap
-  - slirp4netns
   - git
-
-groups:
-  - apinasaari-slackbots
 
 users:
   - name: admin
-    groups: [sudo, apinasaari-slackbots]
+    groups: [sudo]
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh_authorized_keys:
       - ${ssh_public_key}
-  - name: n8n
-    groups: [apinasaari-slackbots]
-    shell: /bin/bash
 
 apt:
   sources:
@@ -42,36 +34,15 @@ write_files:
       MaxAuthTries 3
       ClientAliveInterval 300
       ClientAliveCountMax 2
-  - path: /etc/subuid
-    content: |
-      n8n:100000:65536
-    append: true
-  - path: /etc/subgid
-    content: |
-      n8n:100000:65536
-    append: true
-  - path: /etc/sysctl.d/99-podman.conf
-    content: |
-      user.max_user_namespaces=28633
-      kernel.unprivileged_userns_clone=1
 
 runcmd:
   # Clone repository and set correct permissions
   - |
     if [ ! -d /opt/apinasaari-slackbots ]; then
       mkdir -p /opt/apinasaari-slackbots
-      chown admin:apinasaari-slackbots /opt/apinasaari-slackbots
+      chown admin:admin /opt/apinasaari-slackbots
       sudo -u admin git clone https://github.com/penny-five/apinasaari-slackbots.git /opt/apinasaari-slackbots
     fi
-  - chown -R admin:apinasaari-slackbots /opt/apinasaari-slackbots
-  - chmod -R g+rw /opt/apinasaari-slackbots
-  # Configure podman for n8n user (rootless containers)
-  - sudo loginctl enable-linger n8n
-  - sudo sysctl --system
-  - sudo -u n8n podman system migrate
-  # Create n8n data directories with proper ownership
-  - mkdir -p /opt/apinasaari-slackbots/n8n_data /opt/apinasaari-slackbots/n8n_state
-  - chown -R n8n:n8n /opt/apinasaari-slackbots/n8n_data /opt/apinasaari-slackbots/n8n_state
   # Create symlinks for config files
   - ln -sf /opt/apinasaari-slackbots/config/Caddyfile /etc/caddy/Caddyfile
   - ln -sf /opt/apinasaari-slackbots/config/services/n8n.service /etc/systemd/system/n8n.service

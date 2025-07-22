@@ -2,6 +2,7 @@ services:
   n8n:
     image: docker.io/n8nio/n8n:1.102.0
     container_name: n8n
+    user: '1001:1001'
     environment:
       - N8N_HOST=0.0.0.0
       - N8N_PORT=5678
@@ -15,6 +16,7 @@ services:
       - ./n8n_state:/home/node/.n8n_state
     networks:
       - n8n_network
+    restart: unless-stopped
 
 networks:
   n8n_network:
