@@ -4,7 +4,7 @@ This repository contains a collection of Slack bots for Apinasaari workspace.
 
 ## Tech Stack
 
-The tech stack in this project is designed to be lightweight and cheap to run. A sub 5 € per month VM is sufficient to run the entire stack.
+The tech stack in this project is designed to be lightweight and cheap to run. A sub 5 € per month VM in Hetzner Cloud is sufficient to run the entire stack.
 
 The stack includes:
 
@@ -12,7 +12,7 @@ The stack includes:
 - Node.js for custom services, when n8n is not enough
 - Turborepo for monorepo management
 - Caddy for reverse proxy and TLS termination
-- Podman Compose for container orchestration
+- Docker Compose for container orchestration
 - Hetzner Cloud for virtual machines
 - Debian as the base operating system
 - Terraform CDK for infrastructure as code
