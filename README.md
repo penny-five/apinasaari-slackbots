@@ -23,7 +23,8 @@ n8n workflows are located in the `./workflows` directory. Workflows can be impor
 
 Workflows include:
 
-- `new-game-pass-games`: Send a message to selected Slack channel when new Game Pass games become available.
+- `new-game-pass-games-to-slack`: Send a message to selected Slack channel when new Game Pass games become available.
+- `new-free-epic-store-games-to-slack`: Send a message to selected Slack channel when new free Epic Store games become available.
 
 ## Installation
 
